@@ -12,9 +12,18 @@
     <ClInclude Include="..\..\include\nanogui\common.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\screen.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\glad.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\screen.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

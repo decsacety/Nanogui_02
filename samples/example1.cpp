@@ -1,9 +1,21 @@
 #include <nanogui/common.h>
-#include <stdlib.h>
+#include <nanogui/screen.h>
+using namespace nanogui;
 
-void main() {
-	nanogui::init();
+int main(int argc, char* argv[])
+{
+    nanogui::init();
 
-	nanogui::shutdown();
-	system("PAUSE");
+    {
+        Screen* screen = nullptr;
+
+        screen = new Screen(500, 700, "NanoGui-HolyFuck£¿");
+
+        screen->setVisible(true);
+        screen->performLayout();
+    }
+
+    nanogui::shutdown();
+
+    return 0;
 }

@@ -20,9 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\nanogui\common.h" />
+    <ClInclude Include="..\..\include\nanogui\screen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp" />
+    <ClCompile Include="..\..\src\glad.c" />
+    <ClCompile Include="..\..\src\screen.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -119,11 +122,15 @@
       <PreprocessorDefinitions>_DEBUG;NANOGUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>Y:\WorkSpace\TEST01\Nanogui\ext\glfw\include;Y:\WorkSpace\TEST01\Nanogui\ext\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>Y:\WorkSpace\TEST01\Nanogui\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
