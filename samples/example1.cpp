@@ -1,5 +1,6 @@
 #include <nanogui/common.h>
 #include <nanogui/screen.h>
+#include <nanogui/formhelper.h>
 using namespace nanogui;
 
 int main(int argc, char* argv[])
@@ -9,10 +10,23 @@ int main(int argc, char* argv[])
     {
         Screen* screen = nullptr;
 
-        screen = new Screen(500, 700, "NanoGui-HolyFuck？");
+        screen = new Screen(500, 700, "NanoGui-HolyHuaQ!");
+         
+        Screen* screen1 = new Screen(200, 500, "DiLiDaLiLiDa!!!");
+        screen1->setVisible(true);
+
+        //开始创建窗口内容器
+        bool enabled = true;
+        FormHelper* gui = new FormHelper(screen);
+        //ref<Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
+
+        //创建完毕
+
 
         screen->setVisible(true);
         screen->performLayout();
+
+        nanogui::mainloop(0);
     }
 
     nanogui::shutdown();

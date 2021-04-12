@@ -20,11 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\nanogui\common.h" />
+    <ClInclude Include="..\..\include\nanogui\formhelper.h" />
+    <ClInclude Include="..\..\include\nanogui\object.h" />
     <ClInclude Include="..\..\include\nanogui\screen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp" />
+    <ClCompile Include="..\..\src\FormHelper.cpp" />
     <ClCompile Include="..\..\src\glad.c" />
+    <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\screen.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -122,7 +126,6 @@
       <PreprocessorDefinitions>_DEBUG;NANOGUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>Y:\WorkSpace\TEST01\Nanogui\ext\glfw\include;Y:\WorkSpace\TEST01\Nanogui\ext\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
