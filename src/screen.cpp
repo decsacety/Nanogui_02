@@ -32,12 +32,24 @@ namespace nanogui {
         return 1.f;
 
     }
-
+    void Screen::setParent(Screen* fatherScreen) {
+        HWND subHWnd = glfwGetWin32Window(this->mGLFWWindow);
+        HWND hWnd = glfwGetWin32Window(fatherScreen->glfwWindow());
+        SetWindowLong(subHWnd, GWL_EXSTYLE, WS_VISIBLE | WS_EX_LAYERED);
+        //SetWindowLong(subHWnd, GWL_STYLE, GetWindowLong(subHWnd, GWL_STYLE) & (~(WS_CAPTION | WS_SYSMENU | WS_SIZEBOX)));
+        MoveWindow(subHWnd, 10, 10, 400, 400, TRUE);
+        SetParent(subHWnd, hWnd);
+    }
     Screen::Screen() {
 
     }
-    Screen::Screen(int wight, int height, const char* name):mBackground(0.3f, 0.3f, 0.32f, 1.f)
+    Screen::Screen(int wight, int height, const char* name,int sign):mBackground(0.3f, 0.3f, 0.32f, 1.f)
     {
+        this->sign = sign;
+        if (this->sign == SUBSCREEN) {
+            mBackground = Color(0.2, 0.2, 0.33, 1);
+        }
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -139,10 +151,14 @@ namespace nanogui {
     }
 
     void Screen::drawAll() {
+        if (!mVisible)
+            return;
+        glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
+
         glClearColor(mBackground.r, mBackground.g, mBackground.b, mBackground.a);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        drawWidgets();
+        //drawWidgets();
 
         glfwSwapBuffers(mGLFWWindow);
     }
@@ -150,8 +166,8 @@ namespace nanogui {
     void Screen::drawWidgets() {
         if (!mVisible)
             return;
-
         glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
+        
 
         glfwGetFramebufferSize(mGLFWWindow, &mFBSize.x, &mFBSize.y);
         glfwGetWindowSize(mGLFWWindow, &mSize.x, &mSize.y);

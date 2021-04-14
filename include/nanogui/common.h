@@ -21,7 +21,12 @@ namespace nanogui {
     NANOGUI_EXPORT void shutdown();
     NANOGUI_EXPORT void mainloop(int refresh);
 
-    NANOGUI_EXPORT struct Vector2i {
+    NANOGUI_EXPORT struct Vector2i {/*
+    public:
+        Vector2i(int a, int b) {
+            x = a;
+            y = b;
+        };*/
         int x;
         int y;
     };

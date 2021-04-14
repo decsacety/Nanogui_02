@@ -21,6 +21,12 @@
     <ClInclude Include="..\..\include\nanogui\formhelper.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\window.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\widget.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -29,13 +35,16 @@
     <ClCompile Include="..\..\src\screen.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\FormHelper.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\object.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\glad.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\window.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
