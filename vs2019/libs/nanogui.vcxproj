@@ -21,16 +21,20 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\nanogui\common.h" />
     <ClInclude Include="..\..\include\nanogui\formhelper.h" />
+    <ClInclude Include="..\..\include\nanogui\layout.h" />
     <ClInclude Include="..\..\include\nanogui\object.h" />
     <ClInclude Include="..\..\include\nanogui\screen.h" />
+    <ClInclude Include="..\..\include\nanogui\theme.h" />
     <ClInclude Include="..\..\include\nanogui\widget.h" />
     <ClInclude Include="..\..\include\nanogui\window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp" />
     <ClCompile Include="..\..\src\glad.c" />
+    <ClCompile Include="..\..\src\layout.cpp" />
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\screen.cpp" />
+    <ClCompile Include="..\..\src\theme.cpp" />
     <ClCompile Include="..\..\src\widget.cpp" />
     <ClCompile Include="..\..\src\window.cpp" />
   </ItemGroup>

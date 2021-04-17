@@ -40,10 +40,10 @@ namespace nanogui {
         MoveWindow(subHWnd, 10, 10, 400, 400, TRUE);
         SetParent(subHWnd, hWnd);
     }
-    Screen::Screen() {
+    Screen::Screen() :Widget(nullptr){
 
     }
-    Screen::Screen(int wight, int height, const char* name,int sign):mBackground(0.3f, 0.3f, 0.32f, 1.f)
+    Screen::Screen(int wight, int height, const char* name,int sign): Widget(nullptr),mBackground(0.3f, 0.3f, 0.32f, 1.f)
     {
         this->sign = sign;
         if (this->sign == SUBSCREEN) {
@@ -65,8 +65,8 @@ namespace nanogui {
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
             throw std::runtime_error("Could not initialize GLAD!");//初始化glad
 
-        glfwGetFramebufferSize(mGLFWWindow, &mFBSize.x, &mFBSize.y);
-        glViewport(0, 0, mFBSize.x, mFBSize.y);
+        glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
+        glViewport(0, 0, mFBSize[0], mFBSize[1]);
         glClearColor(mBackground.r, mBackground.g, mBackground.b, mBackground.a);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         glfwSwapInterval(0);
@@ -133,13 +133,13 @@ namespace nanogui {
     void Screen::initialize(GLFWwindow* window, bool shutdownGLFWOnDestruct) {
         mGLFWWindow = window;
         mShutdownGLFWOnDestruct = shutdownGLFWOnDestruct;
-        glfwGetWindowSize(mGLFWWindow, &mSize.x, &mSize.y);
-        glfwGetFramebufferSize(mGLFWWindow, &mFBSize.x, &mFBSize.y);
+        glfwGetWindowSize(mGLFWWindow, &mSize[0], &mSize[1]);
+        glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
 
         mPixelRatio = get_pixel_ratio(window);//
 
         if (mPixelRatio != 1)
-            glfwSetWindowSize(window, mSize.x * mPixelRatio, mSize.y * mPixelRatio);//
+            glfwSetWindowSize(window, mSize[0] * mPixelRatio, mSize[1] * mPixelRatio);//
         
         GLint nStencilBits = 0, nSamples = 0;
         glGetFramebufferAttachmentParameteriv(GL_DRAW_FRAMEBUFFER,
@@ -169,8 +169,8 @@ namespace nanogui {
         glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
         
 
-        glfwGetFramebufferSize(mGLFWWindow, &mFBSize.x, &mFBSize.y);
-        glfwGetWindowSize(mGLFWWindow, &mSize.x, &mSize.y);
+        glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
+        glfwGetWindowSize(mGLFWWindow, &mSize[0], &mSize[1]);
 
         //glViewport(0, 0, mFBSize.x, mFBSize.y);
         
@@ -196,6 +196,6 @@ namespace nanogui {
         }
     }
     void Screen::performLayout() {
-
+        Widget::performLayout(mNVGContext);
     }
 }

@@ -32,7 +32,7 @@ namespace nanogui {
 
 		ref(const ref& r) :m_ptr(r.m_ptr) {
 			if (m_ptr)
-				((Object*)m_ptr)->inRef();
+				((Object*)m_ptr)->incRef();
 		}
 
 		ref(ref&& r) noexcept : m_ptr(r.m_ptr) {
@@ -54,7 +54,7 @@ namespace nanogui {
 			return *this;
 		}
 
-		ref& operatot=(const ref &r) noexcept{
+		ref& operator=(const ref &r) noexcept{
 			if (m_ptr != r.m_ptr) {
 				if (r.m_ptr)
 					((Object*)r.m_ptr)->incRef();
@@ -86,11 +86,11 @@ namespace nanogui {
 
 		T* operator->() { return m_ptr; }
 
-		const T* operator->() { return m_ptr; }
+		const T* operator->() const { return m_ptr; }
 
 		T& operator*() { return *m_ptr; }
 
-		const T& operator*() const { return *m_ptr };
+		const T& operator*() const { return *m_ptr; }
 
 		operator T* () { return m_ptr; }
 

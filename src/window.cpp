@@ -3,7 +3,7 @@
 
 namespace nanogui {
 
-	Window::Window(Widget *parent, const char* title)
+	Window::Window(Widget* parent, const char* title)
 		: Widget(parent), mTitle(title), mButtonPanel(nullptr),
 		mModal(false), mDrag(false)
 	{}

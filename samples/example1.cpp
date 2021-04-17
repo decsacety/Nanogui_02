@@ -1,8 +1,5 @@
-#include <nanogui/common.h>
 #include <nanogui/screen.h>
 #include <nanogui/formhelper.h>
-#include <nanogui/window.h>
-#include <nanogui/object.h>
 using namespace nanogui;
 
 int main(int argc, char* argv[])
@@ -19,13 +16,13 @@ int main(int argc, char* argv[])
 
         //开始创建窗口内容器
 
-        Screen* subScreen = new Screen(20, 200, "Form helper example",SUBSCREEN);
+        /*Screen* subScreen = new Screen(20, 200, "Form helper example",SUBSCREEN);
         subScreen->setVisible(true);
-        subScreen->setParent(screen1);
+        subScreen->setParent(screen1);*/
 
         bool enabled = true;
         FormHelper* gui = new FormHelper(screen);
-        ref<Window> window = gui->addWindow(10, 10, "Form helper example");
+        ref<Window> window = gui->addWindow(Vector2i(10,10), "Form helper example");
 
         //创建完毕
 

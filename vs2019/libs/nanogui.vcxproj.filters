@@ -27,6 +27,12 @@
     <ClInclude Include="..\..\include\nanogui\widget.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\theme.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\layout.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -45,6 +51,12 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\widget.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\theme.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\layout.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

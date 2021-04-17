@@ -1,22 +1,30 @@
+#pragma once
 #include<nanogui/screen.h>
 #include<nanogui/window.h>
-#include<nanogui/object.h>
 #include<nanogui/widget.h>
+#include<nanogui/layout.h>
 
 namespace nanogui {
-	NANOGUI_EXPORT class FormHelper {
+	class FormHelper {
 	public: 
 		FormHelper(Screen* screen) : mScreen(screen){}
 
-		Window* addWindow(int posx,int posy , const char* title = "NoName")
+		Window* addWindow(Vector2i pos , const char* title = "NoName")
 		{
 			mWindow = new Window(mScreen, title);
-			//mWindow = new Window(mScreen, title);
+			mLayout = new AdvancedGridLayout({ 10,0,10,0 }, {});
+			mLayout->setMargin(0);
+			mLayout->setColStretch(2, 1);
+			mWindow->setPosition(pos);
+			mWindow->setLayout(mLayout);
+			mWindow->setVisible(true);
+			return mWindow;
 		}
 	protected:
 		ref<Screen> mScreen;
-		ref<Window> mWindow/*;
-	public:
+		ref<Window> mWindow;
+		ref<AdvancedGridLayout> mLayout;
+	/*public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW*/
 	};
 }

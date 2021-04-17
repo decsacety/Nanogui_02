@@ -1,4 +1,5 @@
 #pragma once
+#include <Eigen/Core>
 #if defined(NANOGUI_SHARED)
 #    define NANOGUI_EXPORT __declspec(dllexport)
 #  else
@@ -21,15 +22,10 @@ namespace nanogui {
     NANOGUI_EXPORT void shutdown();
     NANOGUI_EXPORT void mainloop(int refresh);
 
-    NANOGUI_EXPORT struct Vector2i {/*
-    public:
-        Vector2i(int a, int b) {
-            x = a;
-            y = b;
-        };*/
+    /*NANOGUI_EXPORT struct Vector2i {
         int x;
         int y;
-    };
+    };*/
     NANOGUI_EXPORT class Color {
     public:
         Color() {
@@ -56,5 +52,6 @@ namespace nanogui {
         float a;
     };
 
+    using Vector2i = Eigen::Vector2i;
 }
 

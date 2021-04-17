@@ -1,5 +1,6 @@
 #pragma once
 #include <nanogui/common.h>
+#include <nanogui/widget.h>
 #include <string>
 
 #define SUBSCREEN 0x23131
@@ -7,7 +8,7 @@
 
 namespace nanogui {
 
-    class Screen {
+    class Screen :public Widget  {
 
     public:
         //NANOGUI_EXPORT Screen(int wight, int height, const char* name);
