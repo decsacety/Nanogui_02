@@ -9,9 +9,9 @@ int main(int argc, char* argv[])
     {
         Screen* screen = nullptr;
 
-        screen = new Screen(500, 700, "NanoGui-HolyHuaQ!");
+        screen = new Screen(Vector2i(500, 700), "NanoGui-HolyHuaQ!");
          
-        Screen* screen1 = new Screen(200, 500, "DiLiDaLiLiDa!!!");
+        Screen* screen1 = new Screen(Vector2i(200, 500), "DiLiDaLiLiDa!!!");
         screen1->setVisible(true);
 
         //开始创建窗口内容器
@@ -22,7 +22,8 @@ int main(int argc, char* argv[])
 
         bool enabled = true;
         FormHelper* gui = new FormHelper(screen);
-        ref<Window> window = gui->addWindow(Vector2i(10,10), "Form helper example");
+        ref<Window> window;
+        window= gui->addWindow(Vector2i(10, 10), "Form helper example");
 
         //创建完毕
 
@@ -37,3 +38,4 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+                   

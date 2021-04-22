@@ -36,6 +36,8 @@ namespace nanogui {
             int numScreen = 0;
             for (auto kv : __nanogui_screens) {
                 Screen* screen = kv.second;
+                if (!screen->visible())
+                    continue;
                 if (glfwWindowShouldClose(screen->glfwWindow())) {
                     screen->setVisible(false);
                     continue;
@@ -56,6 +58,10 @@ namespace nanogui {
 
     void shutdown() {
         glfwTerminate();
+    }
+
+    inline Color::operator const NVGcolor& () const {
+        return reinterpret_cast<const NVGcolor&>(*this->data());
     }
 
 }

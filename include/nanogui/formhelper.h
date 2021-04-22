@@ -6,8 +6,10 @@
 
 namespace nanogui {
 	class FormHelper {
-	public: 
-		FormHelper(Screen* screen) : mScreen(screen){}
+	public:  
+		FormHelper(Screen* screen){
+			mScreen = screen;
+		}
 
 		Window* addWindow(Vector2i pos , const char* title = "NoName")
 		{
@@ -24,7 +26,7 @@ namespace nanogui {
 		ref<Screen> mScreen;
 		ref<Window> mWindow;
 		ref<AdvancedGridLayout> mLayout;
-	/*public:
-		EIGEN_MAKE_ALIGNED_OPERATOR_NEW*/
+	public:
+		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	};
 }

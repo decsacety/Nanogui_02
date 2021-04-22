@@ -26,5 +26,37 @@ namespace nanogui {
 		int mTabButtonHorizontalPadding;
 		int mTabButtonVerticalPadding;
 
+		//Generic colors
+		Color mDropShadow;
+		Color mTransparent;
+		Color mBorderDark;
+		Color mBorderLight;
+		Color mBorderMedium;
+		Color mTextColor;
+		Color mDisabledTextColor;
+		Color mTextColorShadow;
+		Color mIconColor;
+
+		//Button colors;
+
+		//Window colors
+		Color mWindowFillUnfocused;
+		Color mWindowFillFocused;
+		Color mWindowTitleUnfocused;
+		Color mWindowTitleFocused;
+		//WIndows headings
+		Color mWindowHeaderGradientTop;
+		Color mWindowHeaderGradientBot;
+		Color mWindowHeaderSepTop;
+		Color mWindowHeaderSepBot;
+
+		//The Popup window color 
+		Color mWindowPopup;
+
+		//The transparent Window color
+		Color mWindowPopupTransparent;
+
+
+
 	};
 }
