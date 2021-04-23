@@ -12,11 +12,18 @@ namespace nanogui {
 		bool modal() const { return mModal; }
 		void setModal(bool modal) { mModal = modal; }
 
+		void setSize(int x, int y) { mSize.x() = x; mSize.y() = y; }
+
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
 		virtual void performLayout(NVGcontext* ctx) override;
 		virtual void draw(NVGcontext* ctx) override;
 		virtual void refreshRelativePlacement();
-	protected :
+		virtual bool mouseDragEvent(const Vector2i& p, const Vector2i& rel,
+			int button, int modifiers) override;
+		virtual bool mouseButtonEvent(const Vector2i& p, int button, bool down
+			, int modifiers) override;
+	protected:
+
 	protected:
 		const char* mTitle;
 		Widget* mButtonPanel;

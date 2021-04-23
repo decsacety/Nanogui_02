@@ -27,7 +27,9 @@ namespace nanogui {
 		float bounds[4];
 		nvgTextBounds(ctx, 0, 0, mTitle, nullptr, bounds);
 
-		return result.cwiseMax(Vector2i(bounds[2] - bounds[0] + 20, bounds[3] - bounds[1]));
+		return result.cwiseMax(Vector2i(
+			bounds[2] - bounds[0] + 20, bounds[3] - bounds[1] + 20
+		));//y轴增加20作为边框
 	}
 
 	void Window::performLayout(NVGcontext* ctx) {
@@ -53,22 +55,23 @@ namespace nanogui {
 		int ds = mTheme->mWindowDropShadowSize, cr = mTheme->mWindowCornerRadius;
 		int hh = mTheme->mWindowHeaderHeight;
 
+		//Draw window 
 		nvgSave(ctx);
 		nvgBeginPath(ctx);
-		nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(),mSize.y(), cr);
+		nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(), cr);
 
-		/*nvgFillColor(ctx, mMouseFocus ? mTheme->mWindowFillFocused
-			: mTheme->mWindowFillUnfocused);*/
-		NVGcolor focusColor = { 0.1, 0.1, 0.2, 1.0f };
-		NVGcolor nfocusColor = { 0.1f, 0.2f, 0.1f, 1.0f };
-		nvgFillColor(ctx, (mMouseFocus ? focusColor
-			: nfocusColor));
+		nvgFillColor(ctx, mMouseFocus ? mTheme->mWindowFillFocused
+			: mTheme->mWindowFillUnfocused);
+		//NVGcolor focusColor = { 0.1, 0.1, 0.2, 1 };
+		//NVGcolor nfocusColor = { 0.1f, 0.2f, 0.1f,  0 };
+		//nvgFillColor(ctx, (mMouseFocus ? focusColor
+		//	: nfocusColor));
 		nvgFill(ctx);
 
-		////Draw a drop shadow
-		//NVGpaint shadowPaint = nvgBoxGradient(
-		//	ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(), cr * 2, ds * 2,
-		//	mTheme->mWindowDropShadowSize, mTheme->mTransparent);
+		//Draw a drop shadow
+		NVGpaint shadowPaint = nvgBoxGradient(
+			ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(), cr * 2, ds * 2,
+			mTheme->mDropShadow, mTheme->mTransparent);
 
 		nvgSave(ctx);
 		nvgResetScissor(ctx);
@@ -77,8 +80,53 @@ namespace nanogui {
 			, mSize.y() + 2 * ds);
 		nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(),cr);
 		nvgPathWinding(ctx, NVG_HOLE);
+		nvgFillPaint(ctx, shadowPaint);
 		nvgFill(ctx);
 		nvgRestore(ctx);
+
+		if (mTitle) {
+			NVGpaint headerPaint = nvgLinearGradient(
+				ctx, mPos.x(), mPos.y(), mPos.x(), mPos.y() + hh,
+				mTheme->mWindowHeaderGradientTop,
+				mTheme->mWindowHeaderGradientBot);
+
+			nvgBeginPath(ctx);
+			nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), hh, cr);
+
+			nvgFillPaint(ctx, headerPaint);
+			nvgFill(ctx);
+
+			nvgBeginPath(ctx);
+			nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), hh, cr);
+			nvgStrokeColor(ctx, mTheme->mWindowHeaderSepTop);
+
+			nvgSave(ctx);
+			nvgIntersectScissor(ctx, mPos.x(), mPos.y(), mSize.x(), 0.5f);
+			nvgStroke(ctx);
+			nvgRestore(ctx);
+
+			nvgBeginPath(ctx);
+			nvgMoveTo(ctx, mPos.x() + 0.5, mPos.y() + hh - 1.5f);
+			nvgLineTo(ctx, mPos.x() + mSize.x() - 0.5f, mPos.y() + hh - 1.5f);
+			nvgStrokeColor(ctx, mTheme->mWindowHeaderSepBot);
+			nvgStroke(ctx);
+
+			nvgFontSize(ctx, 18.0f);
+			nvgFontFace(ctx, "sans-bold");
+			nvgTextAlign(ctx, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
+
+			nvgFontBlur(ctx, 2);
+			nvgFillColor(ctx, mTheme->mDropShadow);
+			nvgText(ctx, mPos.x() + mSize.x() / 2,
+				mPos.y() + hh / 2, mTitle, nullptr);
+
+			nvgFontBlur(ctx, 0);
+			nvgFillColor(ctx, mFocused ? mTheme->mWindowTitleFocused :
+				mTheme->mWindowTitleUnfocused);
+			nvgText(ctx, mPos.x() + mSize.x() / 2, mPos.y() + hh / 2 - 1,
+				mTitle, nullptr);
+
+		}
 
 		nvgRestore(ctx);
 		Widget::draw(ctx);
@@ -90,4 +138,24 @@ namespace nanogui {
 		//override by popued  
 	}
 
+	bool Window::mouseDragEvent(const Vector2i&, const Vector2i& rel,
+		int button, int /*modifiers*/) {
+		if (mDrag && (button & (1 << GLFW_MOUSE_BUTTON_1)) != 0) {
+			mPos += rel;
+			mPos = mPos.cwiseMax(Vector2i::Zero());
+			mPos = mPos.cwiseMin(parent()->size() - mSize);
+			return true;
+		}
+		return false;
+	}
+
+	bool Window::mouseButtonEvent(const Vector2i& p, int button, bool down, int modifiers) {
+		if (Widget::mouseButtonEvent(p, button, down, modifiers))
+			return true;
+		if (button == GLFW_MOUSE_BUTTON_1) {
+			mDrag = down && (p.y() - mPos.y()) < mTheme->mWindowHeaderHeight;
+			return true;
+		}
+		return false;
+	}
 }

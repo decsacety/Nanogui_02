@@ -24,13 +24,13 @@ int main(int argc, char* argv[])
         FormHelper* gui = new FormHelper(screen);
         ref<Window> window;
         window= gui->addWindow(Vector2i(10, 10), "Form helper example");
-
         //´´½¨Íê±Ï
 
 
         screen->setVisible(true);
         screen->performLayout();
 
+        //window->setSize(195, 45);
         nanogui::mainloop(0);
     }
 

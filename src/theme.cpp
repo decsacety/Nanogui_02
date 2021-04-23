@@ -11,7 +11,7 @@ namespace nanogui {
 
         mWindowCornerRadius                     = 2;
         mWindowHeaderHeight                     = 30;
-        mWindowDropShadowSize                   = 10;
+        mWindowDropShadowSize                   = 5;//ԭΪ10
         mButtonCornerRadius                     = 2;
         mTabBorderWidth                         = 0.75f;
         mTabInnerMargin                         = 5;
@@ -37,6 +37,7 @@ namespace nanogui {
         mWindowTitleUnfocused                   = Color(220, 160);
         mWindowTitleFocused                     = Color(255, 190);
 
+        //Window header
         mWindowHeaderGradientTop                = Color(74, 255);
         mWindowHeaderGradientBot                = Color(58, 255);
         mWindowHeaderSepTop                     = Color(41, 255);
