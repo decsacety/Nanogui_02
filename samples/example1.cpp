@@ -23,7 +23,9 @@ int main(int argc, char* argv[])
         bool enabled = true;
         FormHelper* gui = new FormHelper(screen);
         ref<Window> window;
-        window= gui->addWindow(Vector2i(10, 10), "Form helper example");
+        ref<Window> window2;
+        window = gui->addWindow(Vector2i(10, 10), "Form helper example");
+        window2 = gui->addWindow(Vector2i(10, 50), "HuaQ");
         //´´½¨Íê±Ï
 
 

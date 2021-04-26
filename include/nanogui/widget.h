@@ -38,6 +38,7 @@ namespace nanogui {
 			}
 			return visible;
 		}
+		
 		void setSize(const Vector2i& size) { mSize = size; }
 		void setFixedSize(const Vector2i& fixedSize) { mFixedSize = fixedSize; }
 		void setFontSize(int fontSize) { mFontSize = fontSize; }
@@ -82,6 +83,8 @@ namespace nanogui {
 
 		float mIconExtraScale;
 		Cursor mCursor;
+
+		Vector2i  MinSubWindowSize;
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

@@ -45,6 +45,8 @@ namespace nanogui {
 		Color mWindowTitleUnfocused;
 		Color mWindowTitleFocused;
 		//WIndows headings
+		Color mWindowUnfHeaderGradientTop;
+		Color mWindowUnfHeaderGradientBot;
 		Color mWindowHeaderGradientTop;
 		Color mWindowHeaderGradientBot;
 		Color mWindowHeaderSepTop;

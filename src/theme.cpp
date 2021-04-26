@@ -10,7 +10,7 @@ namespace nanogui {
         mIconScale                              = 0.77f;
 
         mWindowCornerRadius                     = 2;
-        mWindowHeaderHeight                     = 30;
+        mWindowHeaderHeight                     = 20;
         mWindowDropShadowSize                   = 5;//ԭΪ10
         mButtonCornerRadius                     = 2;
         mTabBorderWidth                         = 0.75f;
@@ -21,7 +21,7 @@ namespace nanogui {
         mTabButtonHorizontalPadding             = 10;
         mTabButtonVerticalPadding               = 2;
 
-        mDropShadow                             = Color(0, 128);
+        mDropShadow                             = Color(0, 68);
         mTransparent                            = Color(0, 0);
         mBorderDark                             = Color(29, 255);
         mBorderLight                            = Color(92, 255);
@@ -32,14 +32,16 @@ namespace nanogui {
         mIconColor                              = mTextColor;
 
         //WIndow_related
-        mWindowFillUnfocused                    = Color(43, 230);
-        mWindowFillFocused                      = Color(45, 230);
-        mWindowTitleUnfocused                   = Color(220, 160);
-        mWindowTitleFocused                     = Color(255, 190);
+        mWindowFillUnfocused                    = Color(13, 230);
+        mWindowFillFocused                      = Color(15, 230);
+        mWindowTitleUnfocused                   = Color(255, 240);
+        mWindowTitleFocused                     = Color(255, 240);
 
         //Window header
-        mWindowHeaderGradientTop                = Color(74, 255);
-        mWindowHeaderGradientBot                = Color(58, 255);
+        mWindowHeaderGradientTop                = Color(10, 255);
+        mWindowHeaderGradientBot                = Color(10, 255);
+        mWindowUnfHeaderGradientTop             = Color(0.1843f, 0.29f, 0.47843f, 0.99f);
+        mWindowUnfHeaderGradientBot             = Color(0.1843f, 0.29f, 0.47843f, 0.99f);
         mWindowHeaderSepTop                     = Color(41, 255);
         mWindowHeaderSepBot                     = Color(29, 255);
 

@@ -22,7 +22,7 @@ namespace nanogui {
 		if (mButtonPanel)
 			mButtonPanel->setVisible(true);
 
-		nvgFontSize(ctx, 18.0f);
+		nvgFontSize(ctx, 13.0f);
 		nvgFontFace(ctx, "sans-bold");
 		float bounds[4];
 		nvgTextBounds(ctx, 0, 0, mTitle, nullptr, bounds);
@@ -52,7 +52,7 @@ namespace nanogui {
 	}
 
 	void Window::draw(NVGcontext* ctx) {
-		int ds = mTheme->mWindowDropShadowSize, cr = mTheme->mWindowCornerRadius;
+		int ds = mTheme->mWindowDropShadowSize, cr = 0; //cr = mTheme->mWindowCornerRadius;
 		int hh = mTheme->mWindowHeaderHeight;
 
 		//Draw window 
@@ -87,8 +87,8 @@ namespace nanogui {
 		if (mTitle) {
 			NVGpaint headerPaint = nvgLinearGradient(
 				ctx, mPos.x(), mPos.y(), mPos.x(), mPos.y() + hh,
-				mTheme->mWindowHeaderGradientTop,
-				mTheme->mWindowHeaderGradientBot);
+				mFocused? mTheme->mWindowUnfHeaderGradientTop:mTheme->mWindowHeaderGradientTop,
+				mFocused ? mTheme->mWindowUnfHeaderGradientBot:mTheme->mWindowHeaderGradientBot);
 
 			nvgBeginPath(ctx);
 			nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), hh, cr);
@@ -111,7 +111,7 @@ namespace nanogui {
 			nvgStrokeColor(ctx, mTheme->mWindowHeaderSepBot);
 			nvgStroke(ctx);
 
-			nvgFontSize(ctx, 18.0f);
+			nvgFontSize(ctx, 13.0f);
 			nvgFontFace(ctx, "sans-bold");
 			nvgTextAlign(ctx, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
 
@@ -138,12 +138,20 @@ namespace nanogui {
 		//override by popued  
 	}
 
-	bool Window::mouseDragEvent(const Vector2i&, const Vector2i& rel,
+	bool Window::mouseDragEvent(const Vector2i& p, const Vector2i& rel,
 		int button, int /*modifiers*/) {
 		if (mDrag && (button & (1 << GLFW_MOUSE_BUTTON_1)) != 0) {
 			mPos += rel;
 			mPos = mPos.cwiseMax(Vector2i::Zero());
 			mPos = mPos.cwiseMin(parent()->size() - mSize);
+			return true;
+		}
+		if (button == GLFW_MOUSE_BUTTON_3) {
+			mFocused = true; 
+			mSize +=rel;
+
+			mSize.x() = mSize.x() < MinSubWindowSize.x() ?  MinSubWindowSize.x() : mSize.x();
+			mSize.y() = mSize.y() < MinSubWindowSize.y() ? MinSubWindowSize.y() : mSize.y();
 			return true;
 		}
 		return false;
@@ -152,7 +160,7 @@ namespace nanogui {
 	bool Window::mouseButtonEvent(const Vector2i& p, int button, bool down, int modifiers) {
 		if (Widget::mouseButtonEvent(p, button, down, modifiers))
 			return true;
-		if (button == GLFW_MOUSE_BUTTON_1) {
+		if (button == GLFW_MOUSE_BUTTON_1 || button == GLFW_MOUSE_BUTTON_2) {
 			mDrag = down && (p.y() - mPos.y()) < mTheme->mWindowHeaderHeight;
 			return true;
 		}

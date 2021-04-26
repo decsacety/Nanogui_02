@@ -55,7 +55,7 @@ namespace nanogui {
         bool resizable, bool fullscreen, int colorBits,
         int alphaBits, int depthBits, int stencilBits,
         int nSamples):Widget(nullptr), mGLFWWindow(nullptr), mNVGContext(nullptr),
-        mCursor(Cursor::Arrow), mBackground(0.3f, 0.3f, 0.32f, 1.f), mCaption(name),
+        mCursor(Cursor::Arrow), mBackground(0.45f, 0.549f, 0.6f, 1.f), mCaption(name),
         mShutdownGLFWOnDestruct(false), mFullscreen(fullscreen)
     {
         
@@ -408,7 +408,7 @@ namespace nanogui {
     }
 
     bool Screen::resizeCallbackEvent(int width, int height) {
-        Vector2i fbSize, size;
+        //Vector2i fbSize, size;
         glViewport(0, 0, width, height);
         // glfwGetFramebufferSize(mGLFWWindow, &fbSize.x, &fbSize.y);
          //glfwGetWindowSize(mGLFWWindow, &size.x, &size.y);

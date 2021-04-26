@@ -11,6 +11,8 @@ namespace nanogui {
 		mIconExtraScale(1.0f), mCursor(Cursor::Arrow) {
 		if (parent)
 			parent->addChild(this);
+
+		MinSubWindowSize = Vector2i(20, 20);
 	}
 
 	void Widget::addChild(Widget* widget) {
@@ -105,7 +107,7 @@ namespace nanogui {
 				child->mouseButtonEvent(p - mPos, button, down, modifiers))
 				return true;
 		}
-		if (button == GLFW_MOUSE_BUTTON_1 && down && !mFocused)
+		if ((button == GLFW_MOUSE_BUTTON_1 || button == GLFW_MOUSE_BUTTON_2)  && down && !mFocused)
 			requestFocus();
 		return false;
 	}
@@ -145,4 +147,6 @@ namespace nanogui {
 		mFocused = focused;
 		return false;
 	}
+	
+
 }

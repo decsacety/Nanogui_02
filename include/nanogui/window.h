@@ -12,7 +12,7 @@ namespace nanogui {
 		bool modal() const { return mModal; }
 		void setModal(bool modal) { mModal = modal; }
 
-		void setSize(int x, int y) { mSize.x() = x; mSize.y() = y; }
+		//void setSize(int x, int y) { mSize.x() = x; mSize.y() = y; }
 
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
 		virtual void performLayout(NVGcontext* ctx) override;
