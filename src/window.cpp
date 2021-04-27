@@ -147,7 +147,6 @@ namespace nanogui {
 			return true;
 		}
 		if (button == GLFW_MOUSE_BUTTON_3) {
-			mFocused = true; 
 			mSize +=rel;
 
 			mSize.x() = mSize.x() < MinSubWindowSize.x() ?  MinSubWindowSize.x() : mSize.x();
