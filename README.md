@@ -5,4 +5,5 @@ Now you can insert some subwindows and change their format or transparent as you
 What I will do is to achieve a slide and a button class.
 
 It looks like now :
-https://github.com/decsacety/Nanogui_02/blob/main/ext/1.png
+![Image text](https://github.com/decsacety/Nanogui_02/blob/main/ext/1.png)
+
