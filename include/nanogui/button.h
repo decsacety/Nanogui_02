@@ -17,7 +17,7 @@ namespace nanogui {
 			Right
 		};
 
-		Button(Widget* parent, const std::string& caption = "Untitled HuaQ!", int icon = 0);
+		Button(Widget* parent, const std::string& caption = "Untitled HuaQ!",const std::string& appendixText = "", int icon = 0);
 		
 		//对于每个protected值的set和get方法
 		const std::string& caption() const { return mCaption; }
@@ -57,6 +57,7 @@ namespace nanogui {
 	protected:
 		std::string mCaption;
 
+		std::string mAppendixText;//和button在同一行的文本
 		int mIcon;
 		IconPosition mIconPosition;
 		bool mPushed;
@@ -66,6 +67,8 @@ namespace nanogui {
 		std::function<void()> mCallback;
 		std::function<void(bool)> mChangeCallback;//记得再添加一个参数为count的callback;
 		std::vector <Button*> mButtonGroup;
+
+
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	};

@@ -5,13 +5,13 @@
 namespace nanogui {
 	Theme::Theme(NVGcontext* ctx) {
         mStandardFontSize                       = 16;
-        mButtonFontSize                         = 20;
+        mButtonFontSize                         = 12;//原为 20
         mTextBoxFontSize                        = 20;
         mIconScale                              = 0.77f;
 
         mWindowCornerRadius                     = 2;
         mWindowHeaderHeight                     = 20;
-        mWindowDropShadowSize                   = 5;//ԭΪ10
+        mWindowDropShadowSize                   = 5;//原来是10
         mButtonCornerRadius                     = 2;
         mTabBorderWidth                         = 0.75f;
         mTabInnerMargin                         = 5;
@@ -23,13 +23,20 @@ namespace nanogui {
 
         mDropShadow                             = Color(0, 68);
         mTransparent                            = Color(0, 0);
-        mBorderDark                             = Color(29, 255);
-        mBorderLight                            = Color(92, 255);
+        mBorderDark                             = Color(29, 255);//环绕阴影颜色
+        mBorderLight                            = Color(92, 255);//button上下边缘光
         mBorderMedium                           = Color(35, 255);
         mTextColor                              = Color(255, 250);
         mDisabledTextColor                      = Color(255, 80);
         mTextColorShadow                        = Color(0, 160);
         mIconColor                              = mTextColor;
+
+        mButtonGradientTopFocused               = Color(0.26f, 0.59f, 0.98f, 1.00f);
+        mButtonGradientBotFocused               = Color(0.26f, 0.59f, 0.98f, 1.00f);
+        mButtonGradientTopUnfocused             = Color(0.26f, 0.59f, 0.98f, 0.40f);
+        mButtonGradientBotUnfocused             = Color(0.26f, 0.59f, 0.98f, 0.40f);
+        mButtonGradientTopPushed                = Color(0.06f, 0.53f, 0.98f, 1.00f);
+        mButtonGradientBotPushed                = Color(0.06f, 0.53f, 0.98f, 1.00f);
 
         //WIndow_related
         mWindowFillUnfocused                    = Color(13, 230);

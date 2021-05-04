@@ -33,8 +33,12 @@ int main(int argc, char* argv[])
         window2 = gui->addWindow(Vector2i(10, 100), "HuaQ");
         gui->addText("This is a useful text!");
         gui->addText("No matter where you are, it`s still a life.");
-        //gui->addButton("A button", [](int& count) { std::cout << "Button pressed." << std::endl; count++; });//后面声明的是一个匿名函数作为button的功能。
+        gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; /*count++;*/ });//后面声明的是一个匿名函数作为button的功能。
+        gui->addButton("A button1", []() { 
+            std::cout << "Button pressed." << std::endl; /*count++;*/ 
+        },"Count = 1");
         gui->addText("Count = " + std::to_string(count));
+        gui->addText("This is a useful text!");
 
         //创建完毕
 

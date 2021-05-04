@@ -43,6 +43,8 @@ namespace nanogui {
 		void setSize(const Vector2i& size) { mSize = size; }
 		void setFixedSize(const Vector2i& fixedSize) { mFixedSize = fixedSize; }
 		void setFontSize(int fontSize) { mFontSize = fontSize; }
+		void setFixedHeight(int height) { mFixedSize.y() = height; }
+
 		bool visible() const { return mVisible; }
 		bool focused() const { return mFocused; }
 		const std::vector<Widget*>& children() const { return mChildren; }
@@ -68,6 +70,11 @@ namespace nanogui {
 		virtual void performLayout(NVGcontext* ctx);
 		virtual void draw(NVGcontext* ctx);
 		virtual bool focusEvent(bool focused);
+	
+	protected:
+		virtual ~Widget();
+		inline float icon_scale() const { return mTheme->mIconScale * mIconExtraScale; }
+	
 	protected:
 		Widget* mParent;
 		ref<Theme> mTheme;

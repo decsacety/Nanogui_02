@@ -7,10 +7,14 @@ namespace nanogui {
 	public:
 		Theme(NVGcontext* ctx);
 
+		//fonts
 		int mFontNormal;
 		int mFontBold;
 		int mFontIcons;
+
 		float mIconScale;
+
+		//Spacing-related paramters
 		int mStandardFontSize;
 		int mButtonFontSize;
 		int mTextBoxFontSize;
@@ -38,6 +42,12 @@ namespace nanogui {
 		Color mIconColor;
 
 		//Button colors;
+		Color mButtonGradientTopFocused;
+		Color mButtonGradientBotFocused;
+		Color mButtonGradientTopUnfocused;
+		Color mButtonGradientBotUnfocused;
+		Color mButtonGradientTopPushed;
+		Color mButtonGradientBotPushed;
 
 		//Window colors
 		Color mWindowFillUnfocused;

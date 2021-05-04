@@ -4,7 +4,7 @@
 #include<nanogui/widget.h>
 #include<nanogui/layout.h>
 #include<nanogui/label.h>
-//#include<nanogui/button.h>
+#include<nanogui/button.h>
 
 namespace nanogui {
 	class FormHelper {
@@ -35,16 +35,17 @@ namespace nanogui {
 			return label;
 		}
 
-		//Button* addButton(const std::string& label, const std::function<void()>& cb) {
-		//	Button* button = new Button(mWindow, label);
-		//	button->setCallback(cb);
-		//	button->setFixedHeight(25);//Button的高度
-		//	if (mLayout->rowCount() > 0)
-		//		mLayout->appendRow(mVariableSpacing);
-		//	mLayout->appendRow(0);
-		//	mLayout->setAnchor(button, AdvancedGridLayout::Anchor(1, mLayout->rowCount() - 1, 3, 1));
-		//	return button;
-		//}
+		Button* addButton(const std::string& label, const std::function<void()>& cb, std::string appendixText = "") {
+			Button* button = new Button(mWindow, label, appendixText);
+			button->setCallback(cb);
+			button->setFixedHeight(15);//Button的高度
+			if (mLayout->rowCount() > 0)
+				mLayout->appendRow(mVariableSpacing);
+			mLayout->appendRow(0);
+			mLayout->setAnchor(button, AdvancedGridLayout::Anchor(1, mLayout->rowCount() - 1, 3, 1));
+			mLayout->appendRow(mPostGroupSpacing);//增加一个PostSpacing作为与后面控件的间隔
+			return button;
+		}
 
 	protected:
 		ref<Screen> mScreen;

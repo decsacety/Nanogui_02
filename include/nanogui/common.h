@@ -126,6 +126,7 @@ namespace nanogui {
     NANOGUI_EXPORT inline bool nvgIsFontIcon(int value) { return value >= 1024; }//From pre-opengl.h
 
     using Vector2i = Eigen::Vector2i;
+    using Vector2f = Eigen::Vector2f;
 
     template <typename T> class ref;
     class Layout;
@@ -135,5 +136,9 @@ namespace nanogui {
     class Screen;
     class Popup;
     class Object;
+
+
+    extern NANOGUI_EXPORT std::array<char, 8> utf8(int c);
 }
+
 

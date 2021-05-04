@@ -16,6 +16,13 @@ namespace nanogui {
 		MinSubWindowSize = Vector2i(20, 20);
 	}
 
+	Widget::~Widget() {
+		for (auto child : mChildren) {
+			if (child)
+				child->decRef();
+		}
+	}
+
 	void Widget::addChild(Widget* widget) {
 		addChild(childCount(), widget);
 	}
@@ -85,7 +92,7 @@ namespace nanogui {
 		for (auto child : mChildren) {
 			if (child->visible()) {
 				nvgSave(ctx);
-				nvgIntersectScissor(ctx, child->mPos.x(), child->mPos.y(), child->mSize.x(), child->mSize.y());
+				nvgIntersectScissor(ctx, child->mPos.x(), child->mPos.y(), child->mSize.x()+80, child->mSize.y());//size+80À´À©Õ¹»æÖÆ·¶Î§
 				child->draw(ctx);
 				nvgRestore(ctx);
 			}
