@@ -13,6 +13,7 @@ namespace nanogui {
 	Window::Window(Widget* parent, const char* title)
 		: Widget(parent), mTitle(title), mButtonPanel(nullptr),
 		mModal(false), mDrag(false)
+		/*这后面的变量是我加的*/,pre_mSize_y(10),isFold(false)
 	{}
 
 	Vector2i Window::preferredSize(NVGcontext* ctx) const{
@@ -52,6 +53,19 @@ namespace nanogui {
 	}
 
 	void Window::draw(NVGcontext* ctx) {
+
+		if (isFold) {
+			mTheme->mWindowHeaderGradientBot = mTheme->mWindowHeaderGradientTop = Color(10, 127);
+			mTheme->mWindowUnfHeaderGradientBot = mTheme->mWindowUnfHeaderGradientTop = Color(10, 127);
+			mTheme->mWindowFillFocused = mTheme->mWindowFillUnfocused = Color(0, 0);
+		}//修改折叠子窗体Theme
+		else {
+			mTheme->mWindowHeaderGradientBot = mTheme->mWindowHeaderGradientTop = Color(10, 255);
+			mTheme->mWindowUnfHeaderGradientBot = mTheme->mWindowUnfHeaderGradientTop = Color(0.1843f, 0.29f, 0.47843f, 0.99f);
+			mTheme->mWindowFillFocused = Color(15, 230);
+			mTheme->mWindowFillUnfocused = Color(13, 230);
+		}//还原展开子窗体Theme
+
 		int ds = mTheme->mWindowDropShadowSize, cr = 0; //cr = mTheme->mWindowCornerRadius;
 		int hh = mTheme->mWindowHeaderHeight;
 
@@ -152,7 +166,7 @@ namespace nanogui {
 			mSize.x() = mSize.x() < MinSubWindowSize.x() ?  MinSubWindowSize.x() : mSize.x();
 			mSize.y() = mSize.y() < MinSubWindowSize.y() ? MinSubWindowSize.y() : mSize.y();
 			return true;
-		}
+		}//鼠标右键拖拽改变窗体大小
 		return false;
 	}
 
@@ -161,6 +175,18 @@ namespace nanogui {
 			return true;
 		if (button == GLFW_MOUSE_BUTTON_1 || button == GLFW_MOUSE_BUTTON_2) {
 			mDrag = down && (p.y() - mPos.y()) < mTheme->mWindowHeaderHeight;
+
+			if (modifiers == 12) {
+				if (isFold) {
+					mSize.y() = pre_mSize_y;
+				}//展开子窗体
+				else {
+					pre_mSize_y = mSize.y();
+					mSize.y() = mTheme->mWindowHeaderHeight;
+				}//折叠子窗体
+				isFold = !isFold;
+			}
+
 			return true;
 		}
 		return false;

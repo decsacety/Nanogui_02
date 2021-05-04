@@ -26,7 +26,7 @@ namespace nanogui {
         mBorderDark                             = Color(29, 255);
         mBorderLight                            = Color(92, 255);
         mBorderMedium                           = Color(35, 255);
-        mTextColor                              = Color(255, 160);
+        mTextColor                              = Color(255, 250);
         mDisabledTextColor                      = Color(255, 80);
         mTextColorShadow                        = Color(0, 160);
         mIconColor                              = mTextColor;

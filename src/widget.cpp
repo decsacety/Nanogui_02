@@ -2,6 +2,7 @@
 #include<GLFW/glfw3.h>
 #include<nanogui/screen.h>
 #include<nanovg.h>
+#include <iostream>
 
 namespace nanogui {
 	Widget::Widget(Widget * parent) : mParent(nullptr), mTheme(nullptr), mLayout(nullptr),
@@ -30,6 +31,10 @@ namespace nanogui {
 		mTheme = theme;
 		for (auto child : mChildren)
 			child->setTheme(theme);
+	}
+
+	int Widget::fontSize() const {
+		return (mFontSize < 0 && mTheme) ? mTheme->mStandardFontSize : mFontSize;
 	}
 
 	Vector2i Widget::preferredSize(NVGcontext* ctx) const {

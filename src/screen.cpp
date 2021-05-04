@@ -308,8 +308,22 @@ namespace nanogui {
     }
 
     bool Screen::mouseButtonCallbackEvent(int button, int action, int modifiers) {
-        mModifiers = modifiers;
+        
+        //检测双击事件
+        static bool doubleClick = false;
+        static double lastTime = glfwGetTime();
+        bool isDoubleClick = false;
+        if ((glfwGetTime() - lastTime < 0.3) && doubleClick == true&& action == GLFW_PRESS) {
+            if (mouseButtonEvent(mMousePos, button, action == GLFW_PRESS,
+                mModifiers)) {
+                modifiers = 12;
+                isDoubleClick = true;
+            }
+        }
+
         mLastInteraction = glfwGetTime();
+        mModifiers = modifiers;
+        
         try {
             if (mFocusPath.size() > 1) {
                 const Window* window =
@@ -320,10 +334,14 @@ namespace nanogui {
                 }
             }
 
-            if (action == GLFW_PRESS)
+            if (action == GLFW_PRESS) {
                 mMouseState |= 1 << button;
-            else
+            }
+            else {
+                doubleClick = !doubleClick;
+                lastTime = glfwGetTime();
                 mMouseState &= ~(1 << button);
+            }
 
             auto dropWidget = findWidget(mMousePos);
             if (mDragActive && action == GLFW_RELEASE && dropWidget != mDragWidget)

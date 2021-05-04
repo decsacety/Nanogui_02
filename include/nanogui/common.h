@@ -117,10 +117,13 @@ namespace nanogui {
             return Color(luminance < 0.5f ? 1.f : 0.f, 1.f);
         }
 
-        NANOGUI_EXPORT inline operator const NVGcolor &() const;
+        NANOGUI_EXPORT inline operator const NVGcolor &() const;//From pre-opengl.h
     public:
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     };
+
+
+    NANOGUI_EXPORT inline bool nvgIsFontIcon(int value) { return value >= 1024; }//From pre-opengl.h
 
     using Vector2i = Eigen::Vector2i;
 

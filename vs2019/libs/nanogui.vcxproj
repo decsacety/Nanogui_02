@@ -19,8 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\nanogui\button.h" />
     <ClInclude Include="..\..\include\nanogui\common.h" />
     <ClInclude Include="..\..\include\nanogui\formhelper.h" />
+    <ClInclude Include="..\..\include\nanogui\label.h" />
     <ClInclude Include="..\..\include\nanogui\layout.h" />
     <ClInclude Include="..\..\include\nanogui\object.h" />
     <ClInclude Include="..\..\include\nanogui\popup.h" />
@@ -30,9 +32,11 @@
     <ClInclude Include="..\..\include\nanogui\window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\button.cpp" />
     <ClCompile Include="..\..\src\common.cpp" />
     <ClCompile Include="..\..\src\fonts\nanogui_resources.cpp" />
     <ClCompile Include="..\..\src\glad.c" />
+    <ClCompile Include="..\..\src\label.cpp" />
     <ClCompile Include="..\..\src\layout.cpp" />
     <ClCompile Include="..\..\src\nanovg.c" />
     <ClCompile Include="..\..\src\object.cpp" />

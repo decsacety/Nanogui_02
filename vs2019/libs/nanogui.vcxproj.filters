@@ -36,6 +36,12 @@
     <ClInclude Include="..\..\include\nanogui\popup.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\label.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\button.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -69,6 +75,12 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\fonts\nanogui_resources.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\label.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\button.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

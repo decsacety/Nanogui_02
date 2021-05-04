@@ -12,7 +12,8 @@ int main(int argc, char* argv[])
         screen = new Screen(Vector2i(500, 700), "NanoGui-HolyHuaQ!");
          
         Screen* screen1 = new Screen(Vector2i(200, 500), "DiLiDaLiLiDa!!!");
-        screen1->setVisible(true);
+        screen1->setVisible(true); 
+        screen1->performLayout();
 
         //开始创建窗口内容器
 
@@ -21,11 +22,20 @@ int main(int argc, char* argv[])
         subScreen->setParent(screen1);*/
 
         bool enabled = true;
+        int count = 0;
         FormHelper* gui = new FormHelper(screen);
         ref<Window> window;
         ref<Window> window2;
+
         window = gui->addWindow(Vector2i(10, 10), "Form helper example");
-        window2 = gui->addWindow(Vector2i(10, 50), "HuaQ");
+        gui->addText("This is a useful text! Yerp!");
+
+        window2 = gui->addWindow(Vector2i(10, 100), "HuaQ");
+        gui->addText("This is a useful text!");
+        gui->addText("No matter where you are, it`s still a life.");
+        //gui->addButton("A button", [](int& count) { std::cout << "Button pressed." << std::endl; count++; });//后面声明的是一个匿名函数作为button的功能。
+        gui->addText("Count = " + std::to_string(count));
+
         //创建完毕
 
 

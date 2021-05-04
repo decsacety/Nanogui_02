@@ -17,6 +17,7 @@ namespace nanogui {
 		int childCount() const { return (int)mChildren.size(); }
 		void setParent(Widget* parent) { mParent = parent; }
 		virtual void setTheme(Theme* theme);
+		const Vector2i& position() const { return mPos; }
 		const Vector2i& fixedSize() const { return mFixedSize; }
 		const Theme* theme() const { return mTheme.get(); }
 		int width() const { return mSize[0]; }
@@ -49,6 +50,7 @@ namespace nanogui {
 		Widget* parent() { return mParent; }
 		Widget* findWidget(const Vector2i& p);
 		Cursor cursor()const { return mCursor; }
+		int fontSize() const;
 		bool contains(const Vector2i& p)const {
 			auto d = (p - mPos).array();
 			return (d >= 0).all() && (d < mSize.array()).all();

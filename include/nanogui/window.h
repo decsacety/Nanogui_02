@@ -28,7 +28,9 @@ namespace nanogui {
 		const char* mTitle;
 		Widget* mButtonPanel;
 		bool mModal;
-		bool mDrag; 
+		bool mDrag;
+		int pre_mSize_y;//Y轴历史大小
+		bool isFold;
 	public:
 			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	};
