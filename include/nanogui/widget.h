@@ -13,7 +13,14 @@ namespace nanogui {
 	public:
 		Widget(Widget* parent);
 		void addChild(Widget* widget);
-		void addChild(int index, Widget* widget);
+		virtual void addChild(int index, Widget* widget);
+		void removeChild(const Widget* widget);
+		void removeChild(int index);
+		const Widget* childAt(int index) const { return mChildren[index]; }
+		Widget* childAt(int index) { return mChildren[index]; }
+		Window* window();
+		Screen* screen();
+
 		int childCount() const { return (int)mChildren.size(); }
 		void setParent(Widget* parent) { mParent = parent; }
 		virtual void setTheme(Theme* theme);
@@ -52,6 +59,7 @@ namespace nanogui {
 		Widget* parent() { return mParent; }
 		Widget* findWidget(const Vector2i& p);
 		Cursor cursor()const { return mCursor; }
+		void setCursor(Cursor cursor) { mCursor = cursor; }
 		int fontSize() const;
 		bool contains(const Vector2i& p)const {
 			auto d = (p - mPos).array();

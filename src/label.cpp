@@ -14,6 +14,8 @@ namespace nanogui {
 			mColor = mTheme->mTextColor;
 		}
 		if (fontSize >= 0) mFontSize = fontSize;
+
+		leftMargin = -1;//设定为-1表示使用默认距离。
 	}
 
 	void Label::setTheme(Theme* theme) {
@@ -51,6 +53,15 @@ namespace nanogui {
 		nvgFontFace(ctx, mFont.c_str());
 		nvgFontSize(ctx, fontSize());
 		nvgFillColor(ctx, mColor);
+
+		if (leftMargin != -1)/*如果不为-1则是手动调整了距离*/ {
+			nvgRestore(ctx);
+			nvgSave(ctx);
+			mPos.x() = leftMargin;//设定左边界
+			nvgFontSize(ctx, fontSize());//重新设定fontSize 
+			nvgIntersectScissor(ctx, leftMargin, mPos.y()+2, mSize.x(), mSize.y());//修改画控件的范围
+		}
+
 		if (mFixedSize.x() > 0) {
 			nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
 			nvgTextBox(ctx, mPos.x(), mPos.y(), mFixedSize.x(), mCaption.c_str(), nullptr);

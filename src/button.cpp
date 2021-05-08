@@ -228,6 +228,10 @@ namespace nanogui {
 
 
 		if (mAppendixText != "") {
+			nvgRestore(ctx);
+			nvgSave(ctx);
+			nvgIntersectScissor(ctx, mPos.x(), mPos.y(), mSize.x() + 15+mAppendixText.size()* 8, mSize.y());//size+80¿¥¿©’πªÊ÷∆∑∂Œß
+
 			nvgFontSize(ctx, fontSize);
 			nvgFontFace(ctx, "sans-bold");
 			nvgFillColor(ctx, textColor);

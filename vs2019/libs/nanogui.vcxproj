@@ -22,11 +22,13 @@
     <ClInclude Include="..\..\include\nanogui\button.h" />
     <ClInclude Include="..\..\include\nanogui\common.h" />
     <ClInclude Include="..\..\include\nanogui\formhelper.h" />
+    <ClInclude Include="..\..\include\nanogui\glutil.h" />
     <ClInclude Include="..\..\include\nanogui\label.h" />
     <ClInclude Include="..\..\include\nanogui\layout.h" />
     <ClInclude Include="..\..\include\nanogui\object.h" />
     <ClInclude Include="..\..\include\nanogui\popup.h" />
     <ClInclude Include="..\..\include\nanogui\screen.h" />
+    <ClInclude Include="..\..\include\nanogui\textbox.h" />
     <ClInclude Include="..\..\include\nanogui\theme.h" />
     <ClInclude Include="..\..\include\nanogui\widget.h" />
     <ClInclude Include="..\..\include\nanogui\window.h" />
@@ -42,6 +44,7 @@
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\popup.cpp" />
     <ClCompile Include="..\..\src\screen.cpp" />
+    <ClCompile Include="..\..\src\textbox.cpp" />
     <ClCompile Include="..\..\src\theme.cpp" />
     <ClCompile Include="..\..\src\widget.cpp" />
     <ClCompile Include="..\..\src\window.cpp" />

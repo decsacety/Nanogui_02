@@ -17,6 +17,9 @@ namespace nanogui {
 		Color color()const { return mColor; }
 		void setColor(const Color& color) { mColor = color; }
 
+		int lsetMargin() { return leftMargin; }
+		void setLeftMargin(int margin) { leftMargin = margin; }
+
 		//virtual 
 		virtual void setTheme(Theme* theme) override;
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
@@ -26,6 +29,7 @@ namespace nanogui {
 		std::string mCaption;
 		std::string mFont;
 		Color mColor;
+		int leftMargin;
 	public: EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	};
 

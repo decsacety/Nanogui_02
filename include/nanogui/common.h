@@ -17,6 +17,9 @@ NANOGUI_EXPORT struct NVGcontext { /* Opaque handle type, never de-referenced wi
 NANOGUI_EXPORT struct GLFWwindow { /* Opaque handle type, never de-referenced within NanoGUI */ };
 struct NVGcolor;
 
+//Define command key for windows/mac/linux
+#define SYSTEM_COMMAND_MOD GLFW_MOD_CONTROL
+
 namespace nanogui {
     NANOGUI_EXPORT enum class Cursor {
         Arrow = 0,
@@ -136,6 +139,9 @@ namespace nanogui {
     class Screen;
     class Popup;
     class Object;
+    class TextBox;
+    class Label;
+    class Button;
 
 
     extern NANOGUI_EXPORT std::array<char, 8> utf8(int c);

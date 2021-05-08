@@ -4,7 +4,7 @@
 
 namespace nanogui {
 	Theme::Theme(NVGcontext* ctx) {
-        mStandardFontSize                       = 16;
+        mStandardFontSize                       = 12;//原为 16
         mButtonFontSize                         = 12;//原为 20
         mTextBoxFontSize                        = 20;
         mIconScale                              = 0.77f;
@@ -27,7 +27,7 @@ namespace nanogui {
         mBorderLight                            = Color(92, 255);//button上下边缘光
         mBorderMedium                           = Color(35, 255);
         mTextColor                              = Color(255, 250);
-        mDisabledTextColor                      = Color(255, 80);
+        mDisabledTextColor                      = Color(0.80f, 0.80f, 0.80f, 1.00f);
         mTextColorShadow                        = Color(0, 160);
         mIconColor                              = mTextColor;
 

@@ -28,6 +28,9 @@ namespace nanogui {
 		
 		const Color& textColor() const { return mTextColor; }
 		void setTextColor(const Color& textColor) { mTextColor = textColor; }
+
+		const std::string& appendixText() { return mAppendixText; }
+		void setAppendixText(const std::string& appendix) { mAppendixText = appendix; }
 		
 		int icon() const { return mIcon; }
 		void setIcon(int icon) { mIcon = icon; }

@@ -68,7 +68,25 @@ namespace nanogui {
 		//The transparent Window color
 		Color mWindowPopupTransparent;
 
+		///Icon to use for CheckBox widget (default: ENTYPO_ICON_CHRCK)
+		int mCheckBoxIcon;
+		int mMessageInformationIcon;
+		int mMessageQuestionIcon;
+		int mMessageWarningIcon;
+		int mMessageAltButtonIcon;
+		int mMessagePrimaryButtonIcon;
+		int mPopupChevronRightIcon;
+		int mPopupChevronLeftIcon;
+		int mTabHeaderLeftIcon;
+		int mTabHeaderRightIcon;
+		int mTextBoxUpIcon;
+		int mTextBoxDownIcon;
 
+	protected:
+		virtual ~Theme() {};
+
+	public:
+		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
 	};
 }

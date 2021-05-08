@@ -23,6 +23,8 @@ int main(int argc, char* argv[])
 
         bool enabled = true;
         int count = 0;
+        int ivar = 11111111;//显示数字
+        float fvar = 123123.3;
         FormHelper* gui = new FormHelper(screen);
         ref<Window> window;
         ref<Window> window2;
@@ -33,13 +35,24 @@ int main(int argc, char* argv[])
         window2 = gui->addWindow(Vector2i(10, 100), "HuaQ");
         gui->addText("This is a useful text!");
         gui->addText("No matter where you are, it`s still a life.");
-        gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; /*count++;*/ });//后面声明的是一个匿名函数作为button的功能。
-        gui->addButton("A button1", []() { 
+        Button* buttonOne =nullptr;
+        buttonOne = gui->addButton("A button", [&buttonOne]() {
+            buttonOne->setAppendixText(buttonOne->appendixText() + "!");
             std::cout << "Button pressed." << std::endl; /*count++;*/ 
-        },"Count = 1");
-        gui->addText("Count = " + std::to_string(count));
+            if (buttonOne->appendixText().size() > 17)
+                buttonOne->setAppendixText("HuaQ");
+        },"HuaQ");//后面声明的是一个匿名函数作为button的功能。
+
+        Label* appendixLabel = nullptr;
+        gui->addButton("A button 1", [&appendixLabel]() {
+            static int count = 0 ;
+            std::cout << "Button pressed.!!" << std::endl; count++; 
+            appendixLabel->setCaption("Count = " + std::to_string(count)); },"Don`t push");
+        appendixLabel = gui->addText("Count = " + std::to_string(count));
         gui->addText("This is a useful text!");
 
+        gui->addVariable("Int", ivar)->setSpinnable(true);
+        gui->addVariable("Float", fvar);
         //创建完毕
 
 

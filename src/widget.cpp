@@ -1,6 +1,7 @@
 #include<nanogui/widget.h>
 #include<GLFW/glfw3.h>
 #include<nanogui/screen.h>
+#include<nanogui/window.h>
 #include<nanovg.h>
 #include <iostream>
 
@@ -32,6 +33,46 @@ namespace nanogui {
 		widget->setParent(this);
 		widget->setTheme(mTheme);
 	}
+
+	void Widget::removeChild(const Widget* widget) {
+		mChildren.erase(std::remove(mChildren.begin(), mChildren.end(), widget), mChildren.end());
+		widget->decRef();
+	}
+
+	void Widget::removeChild(int index) {
+		Widget* widget = mChildren[index];
+		mChildren.erase(mChildren.begin() + index);
+		widget->decRef();
+	}
+
+	Window* Widget::window() {
+		Widget* widget = this;
+		while (true) {
+			if (!widget)
+				throw std::runtime_error(
+					"Widget: internal error(could not find parent window"
+				);
+			Window* window = dynamic_cast<Window *>(widget);
+			if (window)
+				return window;
+			widget = widget->parent();
+		}
+	}
+
+	Screen* Widget::screen() {
+		Widget* widget = this;
+		while (true) {
+			if (!widget)
+				throw std::runtime_error(
+					"Widget: internal error (could not find parent screen)"
+				);
+			Screen* screen = dynamic_cast<Screen*>(widget);
+			if (screen)
+				return screen;
+			widget = widget->parent();
+		}
+	}
+
 	void Widget::setTheme(Theme* theme) {
 		if (mTheme.get() == theme)
 			return;
@@ -92,7 +133,7 @@ namespace nanogui {
 		for (auto child : mChildren) {
 			if (child->visible()) {
 				nvgSave(ctx);
-				nvgIntersectScissor(ctx, child->mPos.x(), child->mPos.y(), child->mSize.x()+80, child->mSize.y());//size+80À´À©Õ¹»æÖÆ·¶Î§
+				nvgIntersectScissor(ctx, child->mPos.x(), child->mPos.y(), child->mSize.x(), child->mSize.y());
 				child->draw(ctx);
 				nvgRestore(ctx);
 			}

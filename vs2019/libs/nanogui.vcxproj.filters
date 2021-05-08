@@ -42,6 +42,12 @@
     <ClInclude Include="..\..\include\nanogui\button.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\glutil.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\textbox.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -81,6 +87,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\button.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\textbox.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
