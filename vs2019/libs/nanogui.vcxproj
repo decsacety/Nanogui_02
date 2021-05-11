@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\nanogui\button.h" />
+    <ClInclude Include="..\..\include\nanogui\checkbox.h" />
     <ClInclude Include="..\..\include\nanogui\colorpicker.h" />
     <ClInclude Include="..\..\include\nanogui\colorwheel.h" />
     <ClInclude Include="..\..\include\nanogui\common.h" />
@@ -38,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\button.cpp" />
+    <ClCompile Include="..\..\src\checkbox.cpp" />
     <ClCompile Include="..\..\src\colorpicker.cpp" />
     <ClCompile Include="..\..\src\colorwheel.cpp" />
     <ClCompile Include="..\..\src\common.cpp" />

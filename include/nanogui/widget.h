@@ -54,6 +54,7 @@ namespace nanogui {
 		void setFixedSize(const Vector2i& fixedSize) { mFixedSize = fixedSize; }
 		void setFontSize(int fontSize) { mFontSize = fontSize; }
 		void setFixedHeight(int height) { mFixedSize.y() = height; }
+		void setFixedWidth(int w) { mFixedSize.x() = w; }
 
 		bool visible() const { return mVisible; }
 		void setEnabled(bool enable) { mEnabled = enable; }

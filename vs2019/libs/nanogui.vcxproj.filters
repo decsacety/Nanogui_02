@@ -57,6 +57,9 @@
     <ClInclude Include="..\..\include\nanogui\colorwheel.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\checkbox.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -108,6 +111,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\colorwheel.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\checkbox.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

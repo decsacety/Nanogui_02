@@ -8,6 +8,7 @@
 #include<nanogui/glutil.h>
 #include<nanogui/textbox.h>
 #include<nanogui/colorpicker.h>
+#include<nanogui/checkbox.h>
 
 namespace nanogui {
 
@@ -146,6 +147,27 @@ namespace nanogui {
 	};
 
 	namespace detail {
+
+		/*
+		* A specialization for adding a CheckBox to a FormHelper.
+		*/
+		template <> class FormWidget<bool, std::true_type> : public CheckBox {
+		public:
+			/// Create a new FormWidget with underlying type CheckBox.
+			FormWidget(Widget* p) : CheckBox(p, "") { setFixedWidth(20); }
+
+			///Pass-throught function for \ref nanogui::CheckBox::setChecked
+			void setValue(bool v) { setChecked(v); }
+
+			/// Pass-through function for \ref nanogui::Widget::setEnabled 
+			void setEditable(bool e) { setEnabled(e); }
+
+			/// Returns the value of \ref nanogui::CheckBox::checked
+			bool value() const { return checked(); }
+		public:
+			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+		};
+
 		template <typename T> class FormWidget<T, typename std::is_integral<T>::type> : public IntBox<T> {
 		public:
 			/// Create a new FormWidget with underlying type IntBox.
