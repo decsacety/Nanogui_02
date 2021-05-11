@@ -13,9 +13,19 @@
 //#    define NANOGUI_EXPORT __declspec(dllimport)
 //#  endif
 
-NANOGUI_EXPORT struct NVGcontext { /* Opaque handle type, never de-referenced within NanoGUI */ };
-NANOGUI_EXPORT struct GLFWwindow { /* Opaque handle type, never de-referenced within NanoGUI */ };
+
+// These will produce broken links in the docs build
+#if !defined(DOXYGEN_SHOULD_SKIP_THIS)
+
+struct NVGcontext { /* Opaque handle type, never de-referenced within NanoGUI */ };
+struct GLFWwindow { /* Opaque handle type, never de-referenced within NanoGUI */ };
+
 struct NVGcolor;
+struct NVGglyphPosition;
+struct GLFWcursor;
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
 
 //Define command key for windows/mac/linux
 #define SYSTEM_COMMAND_MOD GLFW_MOD_CONTROL
@@ -129,8 +139,14 @@ namespace nanogui {
     NANOGUI_EXPORT inline bool nvgIsFontIcon(int value) { return value >= 1024; }//From pre-opengl.h
 
     using Vector2i = Eigen::Vector2i;
-    using Vector2f = Eigen::Vector2f;
+    using Vector2f = Eigen::Vector2f; 
+    using Vector3i = Eigen::Vector3i;
+    using Vector3f = Eigen::Vector3f;
+    using Vector4i = Eigen::Vector4i;
+    using Vector4f = Eigen::Vector4f;
 
+    // skip the forward declarations for the docs
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     template <typename T> class ref;
     class Layout;
     class Window;
@@ -142,7 +158,7 @@ namespace nanogui {
     class TextBox;
     class Label;
     class Button;
-
+#endif
 
     extern NANOGUI_EXPORT std::array<char, 8> utf8(int c);
 }

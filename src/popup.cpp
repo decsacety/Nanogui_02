@@ -26,6 +26,7 @@ namespace nanogui {
 	void Popup::refreshRelativePlacement() {
 		mParentWindow->refreshRelativePlacement();
 		mVisible &= mParentWindow->visibleRecursive();
+		mPos = mParentWindow->position() + mAnchorPos - Vector2i(0, mAnchorHeight);
 	}
 
 	void Popup::draw(NVGcontext* ctx) {
@@ -33,6 +34,7 @@ namespace nanogui {
 
 		if (!mVisible)
 			return;
+
 		int ds = mTheme->mWindowDropShadowSize, cr = mTheme->mWindowCornerRadius;
 
 		nvgSave(ctx);
@@ -52,7 +54,7 @@ namespace nanogui {
 
 		//Draw window
 		nvgBeginPath(ctx);
-		nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(), cr);
+		nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(), 0/*ԭΪ cr*/);
 
 		Vector2i base = mPos + Vector2i(0, mAnchorHeight);
 		int sign = -1;
@@ -61,9 +63,9 @@ namespace nanogui {
 			sign = 1;
 		}
 
-		nvgMoveTo(ctx, base.x() + 15 * sign, base.y());
-		nvgLineTo(ctx, base.x() - 1 * sign, base.x() - 15);
-		nvgLineTo(ctx, base.x() - 1 * sign, base.y() + 15);
+		nvgMoveTo(ctx, base.x() + 15 * sign, base.y()-10);
+		nvgLineTo(ctx, base.x() - 1 * sign, base.y() + 10);
+		nvgLineTo(ctx, base.x() - 1 * sign, base.y() );
 
 		nvgFillColor(ctx, mTheme->mWindowPopup);
 		nvgFill(ctx);

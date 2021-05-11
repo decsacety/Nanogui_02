@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     {
         Screen* screen = nullptr;
 
-        screen = new Screen(Vector2i(500, 700), "NanoGui-HolyHuaQ!");
+        screen = new Screen(Vector2i(1200, 700), "NanoGui-HolyHuaQ!");
          
         Screen* screen1 = new Screen(Vector2i(200, 500), "DiLiDaLiLiDa!!!");
         screen1->setVisible(true); 
@@ -25,14 +25,30 @@ int main(int argc, char* argv[])
         int count = 0;
         int ivar = 11111111;//显示数字
         float fvar = 123123.3;
+        Color colval(0.29f, 0.56f, 0.89f, 1.f);
         FormHelper* gui = new FormHelper(screen);
         ref<Window> window;
         ref<Window> window2;
 
         window = gui->addWindow(Vector2i(10, 10), "Form helper example");
-        gui->addText("This is a useful text! Yerp!");
 
-        window2 = gui->addWindow(Vector2i(10, 100), "HuaQ");
+        window->setLayout(new GroupLayout());
+
+        Label* label = new Label(window, "Popup buttons", "sans-bold");
+        label->setLeftMargin(5);//设定左边距为5像素
+        PopupButton* popupBtn = new PopupButton(window, "Popup", ENTYPO_ICON_EXPORT);
+        Popup* popup = popupBtn->popup();
+        popup->setLayout(new GroupLayout());
+        new Label(popup, "Arbitrary widgets can be placed here");
+
+        gui->addText("This is a useful text! Yerp!", 5/*set Left Margin 5 pixel*/);
+        gui->addVariable("Color", colval)
+            ->setCallback([&screen](const Color& c) {
+            screen->setBackcolor(c);
+        });
+
+
+        window2 = gui->addWindow(Vector2i(700, 100), "HuaQ");
         gui->addText("This is a useful text!");
         gui->addText("No matter where you are, it`s still a life.");
         Button* buttonOne =nullptr;

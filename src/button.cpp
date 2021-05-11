@@ -5,7 +5,7 @@
 
 namespace nanogui {
 
-	Button::Button(Widget *parent, const std::string &caption, const std::string& appendixText, int icon)
+	Button::Button(Widget *parent, const std::string &caption, int icon, const std::string& appendixText)
 		:Widget(parent), mCaption(caption), mAppendixText(appendixText) , mIcon(icon),
 		mIconPosition(IconPosition::LeftCentered), mPushed(false),
 		mFlags(NormalButton), mBackgroundColor(Color(0,0)),
@@ -134,7 +134,10 @@ namespace nanogui {
 			mPos.y() + mSize.y(), gradTop, gradBot);
 
 		mPos.x() = mTheme->mTabInnerMargin;//距离左侧边界统一设定为Tab的缩进距离。
-		mSize.x() = mCaption.size() * 7.8;//设定button宽度，每个字符8个像素，
+		if (mCaption.size() <= 8)
+			mSize.x() = 60;
+		else
+			mSize.x() = mCaption.size() * 7.8;//设定button宽度，每个字符8个像素，
 		mSize.y() = mTheme->mButtonFontSize * 1.6;//设定button高度，为字体大小的1.4倍
 
 		nvgFillPaint(ctx, bg);

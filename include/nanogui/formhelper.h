@@ -7,6 +7,7 @@
 #include<nanogui/button.h>
 #include<nanogui/glutil.h>
 #include<nanogui/textbox.h>
+#include<nanogui/colorpicker.h>
 
 namespace nanogui {
 
@@ -32,8 +33,10 @@ namespace nanogui {
 			return mWindow;
 		}
 
-		Label* addText(const std::string& caption) {
+		Label* addText(const std::string& caption, int leftMargin = -1) {
 			Label* label = new Label(mWindow, caption, mGroupFontName, mGroupFontSize);
+			if (leftMargin != -1)
+				label->setLeftMargin(leftMargin);
 			if (mLayout->rowCount() > 0)
 				mLayout->appendRow(mPreGroupSpacing);
 			mLayout->appendRow(0);
@@ -45,7 +48,32 @@ namespace nanogui {
 		//Add a new data widget controlled using custom getter/setter functions
 		template <typename Type> detail::FormWidget<Type>* 
 			addVariable(const std::string& label, const std::function<void(const Type &)> &setter,
-				const std::function<Type()>& getter, bool editable = true) {
+				const std::function<Type()>& getter, Type value,  bool editable = true) {
+			//if (typeid(value) == typeid(Color)) {
+			//	Label* labelW = new Label(mWindow, label, mLabelFontName, mLabelFontSize);
+			//	labelW->setLeftMargin(mLeftMargin);//对于自动计算margin不尽人意的控件自行设定左边界距离
+			//	auto widget = new detail::FormWidget<Type>(mWindow);
+			//	auto refresh = [widget, getter] {
+			//		Type value = getter(), current = widget->value();
+			//		if (value != current)
+			//			widget->setValue(value);
+			//	};
+			//	refresh();
+			//	widget->setCallback(setter);
+			//	widget->setEditable(editable);
+			//	widget->setFontSize(mWidgetFontSize);
+			//	widget->setLabel(label);
+			//	Vector2i fs = widget->fixedSize();
+			//	widget->setFixedSize(Vector2i(fs.x() != 0 ? fs.x() : mFixedSize.x(),
+			//		fs.y() != 0 ? fs.y() : mFixedSize.y()));
+			//	mRefreshCallbacks.push_back(refresh);
+			//	if (mLayout->rowCount() > 0)
+			//		mLayout->appendRow(mVariableSpacing);
+			//	mLayout->appendRow(0);
+			//	mLayout->setAnchor(labelW, AdvancedGridLayout::Anchor(1, mLayout->rowCount() - 1));
+			//	mLayout->setAnchor(widget, AdvancedGridLayout::Anchor(3, mLayout->rowCount() - 1));
+			//	return widget;
+			//}
 
 			Label* labelW = new Label(mWindow, label, mLabelFontName, mLabelFontSize);
 			labelW->setLeftMargin(mLeftMargin);//对于自动计算margin不尽人意的控件自行设定左边界距离
@@ -78,12 +106,13 @@ namespace nanogui {
 			return addVariable<Type>(label,
 				[&](const Type& v) {value = v; },
 				[&]()->Type {return value; },
+				value,
 				editable
 				);
 		}
 
 		Button* addButton(const std::string& label, const std::function<void()>& cb, std::string appendixText = "") {
-			Button* button = new Button(mWindow, label, appendixText);
+			Button* button = new Button(mWindow, label,0, appendixText);
 			button->setCallback(cb);
 			button->setFixedHeight(15);//Button的高度
 			if (mLayout->rowCount() > 0)
@@ -146,6 +175,24 @@ namespace nanogui {
 		public:
 			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 		};
+
+		template<> class FormWidget<Color, std::true_type> :public ColorPicker {
+		public:
+			///Create a new FormWidget with underlying type ColorPicker
+			FormWidget(Widget* p) :ColorPicker(p){}
+
+			void setValue(const Color& c) { setColor(c); }
+
+			void setEditable(bool e) { setEnabled(e); }
+
+			Color value() const { return color(); }
+
+		public:
+			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+			///
+		};
+
 	}
 
 }

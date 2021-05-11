@@ -22,6 +22,7 @@ namespace nanogui {
         void initialize(GLFWwindow* window, bool shutdownGLFWOnDestruct);
 
         NANOGUI_EXPORT void setVisible(bool flag);
+        NANOGUI_EXPORT void setBackcolor(const Color& c) { mBackground = c; }
         NANOGUI_EXPORT void performLayout();
         NANOGUI_EXPORT void drawAll();
         NANOGUI_EXPORT void setParent(Screen* subScreen);

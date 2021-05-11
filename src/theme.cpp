@@ -44,6 +44,9 @@ namespace nanogui {
         mWindowTitleUnfocused                   = Color(255, 240);
         mWindowTitleFocused                     = Color(255, 240);
 
+        mWindowPopup                            = Color(15, 200);
+        mWindowPopupTransparent                 = Color(50, 0);
+
         //Window header
         mWindowHeaderGradientTop                = Color(10, 255);
         mWindowHeaderGradientBot                = Color(10, 255);

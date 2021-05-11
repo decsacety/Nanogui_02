@@ -16,7 +16,7 @@ namespace half_float { class half; }
 namespace nanogui {
 
 //Bypass template specializations
-#define DOXYGEN_SHOULD_SKIP_THIS
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 	namespace detail {
 		template <typename T> struct type_traits;
@@ -30,6 +30,6 @@ namespace nanogui {
 		template<> struct type_traits<half_float::half> { enum { type = GL_HALF_FLOAT, integral = 0 }; };
 		template<typename T> struct serialization_helper;
 	}
-
+#endif
 
 }

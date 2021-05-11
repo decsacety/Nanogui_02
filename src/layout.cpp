@@ -1,8 +1,84 @@
 #include<nanogui/layout.h>
 #include<nanogui/window.h>
+#include<nanogui/label.h>
 #include<numeric>
 
 namespace nanogui {
+
+	Vector2i GroupLayout::preferredSize(NVGcontext* ctx,const Widget* widget) const {
+		
+		int height = mMargin, width = 2 * mMargin;
+
+		const Window* window = dynamic_cast<const Window*>(widget);
+		if (window && !window->title().empty())
+			height += widget->theme()->mWindowHeaderHeight - mMargin / 2;
+
+		bool first = true, indent = false;
+		for (auto c : widget->children()) {
+			if (!c->visible())
+				continue;
+			const Label* label = dynamic_cast<const Label*>(c);
+			if (!first)
+				height += (label == nullptr) ? mSpacing : mGroupSpacing;
+			first = false;
+
+			Vector2i ps = c->preferredSize(ctx), fs = c->fixedSize();
+			Vector2i targetSize(
+				fs[0] ? fs[0] : ps[0],
+				fs[1] ? fs[1] : ps[1]
+			);
+
+			bool indentCur = indent && label == nullptr;
+			height += targetSize.y();
+			width = std::max(width, targetSize.x() + 2 * mMargin + (indentCur ? mGroupIndent : 0));
+
+			if (label)
+				indent = !label->caption().empty();
+		}
+		height += mMargin;
+		return Vector2i(width, height);
+
+	}
+
+	void GroupLayout::performLayout(NVGcontext* ctx, Widget* widget) const {
+		int height = mMargin, availabelWidth =
+			(widget->fixedWidth() ? widget->fixedWidth() : widget->width()) - 2 * mMargin;
+
+		const Window* window = dynamic_cast<const Window*>(widget);
+		if (window && !window->title().empty())
+			height += widget->theme()->mWindowHeaderHeight-mMargin/2;
+
+		bool first = true, indent = false;
+		for (auto c : widget->children()) {
+			if (!c->visible())
+				continue;
+			const Label* label = dynamic_cast<const Label*>(c);
+			if (!first)
+				height += (label == nullptr) ? mSpacing : mGroupSpacing;
+			first = false;
+
+			bool indentCur = indent && label == nullptr;
+			Vector2i ps = Vector2i(availabelWidth - (indentCur ? mGroupIndent : 0),
+				c->preferredSize(ctx).y());
+			Vector2i fs = c->fixedSize();
+
+			Vector2i targetSize(
+				fs[0] ? fs[0] : ps[0],
+				fs[1] ? fs[1] : ps[1]
+			);
+
+			c->setPosition(Vector2i(mMargin + (indentCur ? mGroupIndent : 0), height));
+			c->setSize(targetSize);
+			c->performLayout(ctx);
+
+			height += targetSize.y();
+
+			if (label)
+				indent = !label->caption().empty();
+		}
+	}
+
+
 	AdvancedGridLayout::AdvancedGridLayout(const std::vector<int>& cols
 		, const std::vector<int>& rows , int margin ) 
 		: mCols(cols), mRows(rows),mMargin(margin)

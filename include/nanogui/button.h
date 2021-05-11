@@ -17,7 +17,8 @@ namespace nanogui {
 			Right
 		};
 
-		Button(Widget* parent, const std::string& caption = "Untitled HuaQ!",const std::string& appendixText = "", int icon = 0);
+		Button(Widget* parent, const std::string& caption = "Untitled HuaQ!"
+			, int icon = 0, const std::string& appendixText = "");
 		
 		//对于每个protected值的set和get方法
 		const std::string& caption() const { return mCaption; }

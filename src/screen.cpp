@@ -219,9 +219,9 @@ namespace nanogui {
     }
 
     void Screen::drawAll() {
-        //if (!mVisible)
-        //    return;
-        //glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
+        if (!mVisible)
+            return;
+        glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
 
         glClearColor(mBackground[0], mBackground[1], mBackground[2], mBackground[3]);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -232,9 +232,9 @@ namespace nanogui {
     }
 
     void Screen::drawWidgets() {
-        if (!mVisible)
-            return;
-        glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
+        //if (!mVisible)
+        //    return;
+        //glfwMakeContextCurrent(mGLFWWindow);//切换opengl上下文
         
         glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
         glfwGetWindowSize(mGLFWWindow, &mSize[0], &mSize[1]);

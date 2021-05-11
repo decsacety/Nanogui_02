@@ -59,7 +59,7 @@ namespace nanogui {
 			nvgSave(ctx);
 			mPos.x() = leftMargin;//设定左边界
 			nvgFontSize(ctx, fontSize());//重新设定fontSize 
-			nvgIntersectScissor(ctx, leftMargin, mPos.y()+2, mSize.x(), mSize.y());//修改画控件的范围
+			nvgIntersectScissor(ctx, leftMargin, mPos.y(), mSize.x(), mSize.y());//修改画控件的范围
 		}
 
 		if (mFixedSize.x() > 0) {

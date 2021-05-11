@@ -26,6 +26,9 @@ namespace nanogui {
 		virtual void setTheme(Theme* theme);
 		const Vector2i& position() const { return mPos; }
 		const Vector2i& fixedSize() const { return mFixedSize; }
+		int fixedWidth() const { return mFixedSize.x(); }
+		int fixedHeight() const { return mFixedSize.y(); }
+
 		const Theme* theme() const { return mTheme.get(); }
 		int width() const { return mSize[0]; }
 		int height()const { return mSize[1]; }
@@ -53,6 +56,7 @@ namespace nanogui {
 		void setFixedHeight(int height) { mFixedSize.y() = height; }
 
 		bool visible() const { return mVisible; }
+		void setEnabled(bool enable) { mEnabled = enable; }
 		bool focused() const { return mFocused; }
 		const std::vector<Widget*>& children() const { return mChildren; }
 		const Widget* parent() const { return mParent; }
