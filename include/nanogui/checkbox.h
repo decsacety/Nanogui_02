@@ -60,6 +60,9 @@ namespace nanogui {
 		///The preferred size of this CheckBox.
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
 
+		/// Just for ∂‡Ã¨
+		void setLabel(const std::string& label) {}
+
 		/// Draws this CheckBox
 		virtual void draw(NVGcontext* ctx) override;
 

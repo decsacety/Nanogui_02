@@ -11,6 +11,7 @@ What I will do is to achieve a slide and a button class.
 修改了popup控件的款式
 新增了可以通过在Formhelper中可以通过在addText函数末尾添加int来指定Text左边界的功能
 修复了screen.cpp里drawAll函数中先刷新背景颜色再切换OpenGL上下文的错误
+修改了checkBox的icon表达方式 （5/12
 
 It looks like now :
 ![Image text](https://github.com/decsacety/Nanogui_02/blob/main/ext/1.png)

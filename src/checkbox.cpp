@@ -73,13 +73,26 @@ namespace nanogui {
 		nvgFill(ctx);
 
 		if (mChecked) {
-			nvgFontSize(ctx, mSize.y() * icon_scale());
+			float tmp = (mSize.x() - mSize.x() / 1.6 + 1.f) / 2;
+			tmp = tmp > 4.5f ? 3.2f : tmp;
+
+			NVGpaint bg = nvgLinearGradient(ctx, mPos.x() + 1.5f, mPos.y() + 1.5f,
+				mSize.y() - 2.f, mSize.y() - 2.f, 
+				mPushed ? Color(0.26f, 0.59f, 0.98f, 0.8f) : Color(0, 32), Color(0.26f, 0.59f, 0.98f, .8f));
+
+			nvgBeginPath(ctx);
+			nvgRoundedRect(ctx, mPos.x() + tmp, mPos.y() + tmp, mSize.y()/1.6 - 1.f,
+				mSize.y()/1.6 - 1.f, 0);
+			nvgFillPaint(ctx, bg);
+			nvgFill(ctx);
+
+			/*nvgFontSize(ctx, mSize.y() * icon_scale());
 			nvgFontFace(ctx, "icons");
 			nvgFillColor(ctx, mEnabled ? mTheme -> mIconColor:mTheme->mDisabledTextColor);
 
 			nvgTextAlign(ctx, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
 			nvgText(ctx, mPos.x() + mSize.y() * .5f + 1,
-				mPos.y() + mSize.y() * .5f, utf8(mTheme->mCheckBoxIcon).data(), nullptr);
+				mPos.y() + mSize.y() * .5f, utf8(mTheme->mCheckBoxIcon).data(), nullptr);*/
 		}
 
 

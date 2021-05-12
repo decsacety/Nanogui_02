@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
         bool enabled = true;
         int count = 0;
         int ivar = 11111111;//显示数字
+        bool bvar = false;
         float fvar = 123123.3;
         Color colval(0.29f, 0.56f, 0.89f, 1.f);
         FormHelper* gui = new FormHelper(screen);
@@ -34,12 +35,15 @@ int main(int argc, char* argv[])
 
         window->setLayout(new GroupLayout());
 
+        gui->addVariable("bool", bvar);
+
         Label* label = new Label(window, "Popup buttons", "sans-bold");
         label->setLeftMargin(5);//设定左边距为5像素
         PopupButton* popupBtn = new PopupButton(window, "Popup", ENTYPO_ICON_EXPORT);
         Popup* popup = popupBtn->popup();
         popup->setLayout(new GroupLayout());
         new Label(popup, "Arbitrary widgets can be placed here");
+        new CheckBox(popup, "A check box");
 
         gui->addText("This is a useful text! Yerp!", 5/*set Left Margin 5 pixel*/);
         gui->addVariable("Color", colval)
