@@ -5,6 +5,109 @@
 
 namespace nanogui {
 
+	BoxLayout::BoxLayout(Orientation orientation, Alignment alignment, 
+		int margin, int spacing):
+		mOrientation(orientation), mAlignment(alignment), mMargin(margin), mSpacing(spacing)
+	{}
+
+	Vector2i BoxLayout::preferredSize(NVGcontext* ctx, const Widget* widget) const {
+		Vector2i size = Vector2i::Constant(2 * mMargin);
+
+		int yOffset = 0;
+		const Window* window = dynamic_cast<const Window*>(widget);
+		if (window && !window->title().empty()) {
+			if (mOrientation == Orientation::Vertical)
+				size[1] += widget->theme()->mWindowHeaderHeight - mMargin / 2;
+			else
+				yOffset = widget->theme()->mWindowHeaderHeight;
+		}
+
+		bool first = true;
+		int axisl = (int)mOrientation, axis2 = ((int)mOrientation + 1) % 2;
+		for (auto w : widget->children()) {
+			if (!w->visible())
+				continue;
+			if (first)
+				first = false;
+			else
+				size[axisl] += mSpacing;
+
+			Vector2i ps = w->preferredSize(ctx), fs = w->fixedSize();
+			Vector2i targetSize(
+				fs[0] ? fs[0] : ps[0],
+				fs[1] ? fs[1] : ps[1]
+			);
+
+			size[axisl] += targetSize[axisl];
+			size[axis2] = std::max(size[axis2], targetSize[axis2] + 2 * mMargin);
+			first = false;
+		}
+		return size + Vector2i(0, yOffset);
+	}
+
+	void BoxLayout::performLayout(NVGcontext* ctx, Widget* widget) const {
+		Vector2i fs_w = widget->fixedSize();
+		Vector2i containerSize(
+			fs_w[0] ? fs_w[0] : widget->width(),
+			fs_w[1] ? fs_w[1] : widget->height()
+		);
+
+		int axisl = (int)mOrientation, axis2 = ((int)mOrientation + 1) % 2;
+		int position = mMargin;
+		int yOffset = 0;
+
+		const Window* window = dynamic_cast<const Window*> (widget);
+		if (window && !window->title().empty()) {
+			if (mOrientation == Orientation::Vertical) {
+				position += widget->theme()->mWindowHeaderHeight - mMargin / 2;
+			}
+			else {
+				yOffset = widget->theme()->mWindowHeaderHeight;
+				containerSize[1] -= yOffset;
+			}
+		}
+
+		bool first = true;
+		for (auto w : widget->children()) {
+			if (!w->visible())
+				continue;
+			if (first)
+				first = false;
+			else
+				position += mSpacing;
+
+			Vector2i ps = w->preferredSize(ctx), fs = w->fixedSize();
+			Vector2i targetSize(
+				fs[0] ? fs[0] : ps[0],
+				fs[1] ? fs[1] : ps[1]
+			);
+			Vector2i pos(0, yOffset);
+
+			pos[axisl] = position;
+
+			switch (mAlignment) {
+				case Alignment::Minimum:
+					pos[axis2] += mMargin;
+					break;
+				case Alignment::Middle:	
+					pos[axis2] += (containerSize[axis2] - targetSize[axis2] / 2);
+					break;
+				case Alignment::Maximum:
+					pos[axis2] += containerSize[axis2] - targetSize[axis2] - mMargin * 2;
+					break;
+				case Alignment::Fill:
+					pos[axis2] += mMargin;
+					targetSize[axis2] = fs[axis2] ? fs[axis2] : (containerSize[axis2] - mMargin * 2);
+					break;
+			}
+
+			w->setPosition(pos);
+			w->setSize(targetSize);
+			w->performLayout(ctx);
+			position += targetSize[axisl];
+		}
+	}
+
 	Vector2i GroupLayout::preferredSize(NVGcontext* ctx,const Widget* widget) const {
 		
 		int height = mMargin, width = 2 * mMargin;
@@ -76,6 +179,156 @@ namespace nanogui {
 			if (label)
 				indent = !label->caption().empty();
 		}
+	}
+
+
+	Vector2i GridLayout::preferredSize(NVGcontext* ctx, const Widget* widget) const {
+		/*Compute minium row/colum sizes*/
+		std::vector<int> grid[2];
+		computeLayout(ctx, widget, grid);
+
+		Vector2i size(
+			2 * mMargin + std::accumulate(grid[0].begin(), grid[0].end(), 0) +
+			std::max((int)grid[0].size() - 1, 0) * mSpacing[0],
+			2 * mMargin + std::accumulate(grid[1].begin(), grid[1].end(), 0)
+			+ std::max((int)grid[1].size() - 1, 0) * mSpacing[1]
+		);
+
+		const Window* window = dynamic_cast<const Window*>(widget);
+		if (window && !window->title().empty())
+			size[1] += widget->theme()->mWindowHeaderHeight - mMargin / 2;
+
+		return size;
+	}
+
+	void GridLayout::computeLayout(NVGcontext* ctx, const Widget* widget, std::vector<int>* grid) const  {
+		int axis1 = (int)mOrientation, axis2 = (axis1 + 1) % 2;
+		size_t numChildren = widget->children().size(), visibleChildren = 0;
+		for (auto w : widget->children())
+			visibleChildren += w->visible() ? 1 : 0;
+
+		Vector2i dim;
+		dim[axis1] = mResolution;
+		dim[axis2] = (int)((visibleChildren + mResolution - 1) / mResolution);
+
+		grid[axis1].clear(); grid[axis1].resize(dim[axis1], 0);
+		grid[axis2].clear(); grid[axis2].resize(dim[axis2], 0);
+
+		size_t child = 0;
+		for (int i2 = 0; i2 < dim[axis2]; i2++) {
+			for (int i1 = 0; i1 < dim[axis1]; i1++) {
+				Widget* w = nullptr;
+				do {
+					if (child >= numChildren)
+						return;
+					w = widget->children()[child++];
+				} while (!w->visible());
+
+				Vector2i ps = w->preferredSize(ctx);
+				Vector2i fs = w->fixedSize();
+				Vector2i targetSize(
+					fs[0] ? fs[0] : ps[0],
+					fs[1] ? fs[1] : ps[1]
+				);
+
+				grid[axis1][i1] = std::max(grid[axis1][i1], targetSize[axis1]);
+				grid[axis2][i2] = std::max(grid[axis2][i2], targetSize[axis2]);
+
+			}
+		}
+	}
+
+	void GridLayout::performLayout(NVGcontext* ctx, Widget* widget) const {
+		Vector2i fs_w = widget->fixedSize();
+		Vector2i containerSize(
+			fs_w[0] ? fs_w[0] : widget->width(),
+			fs_w[1]? fs_w[1]:widget->height()
+			);
+
+		/*Compute mininum row/column sizes*/
+		std::vector<int> grid[2];
+		computeLayout(ctx, widget, grid);
+		int dim[2] = { (int)grid[0].size(), (int)grid[1].size() };
+
+		Vector2i extra = Vector2i::Zero();
+		const Window* window = dynamic_cast<const Window*>(widget);
+		if (window && !window->title().empty())
+			extra[1] += widget->theme()->mWindowHeaderHeight - mMargin / 2;
+
+		/* Strech to size provided by \c widget*/
+		for (int i = 0; i < 2; i++) {
+			int gridSize = 2 * mMargin + extra[i];
+			for (int s : grid[i]) {
+				gridSize += s;
+				if (i + 1 < dim[i])
+					gridSize += mSpacing[i];
+			}
+
+			if (gridSize < containerSize[i]) {
+				/* Re-distribute remaining space evenly */
+				int gap = containerSize[i] - gridSize;
+				int g = gap / dim[i];
+				int rest = gap - g * dim[i];
+				for (int j = 0; j < dim[i]; ++j)
+					grid[i][j] += g;
+				for (int j = 0; rest > 0 && j < dim[i]; --rest, ++j)
+					grid[i][j] += 1;
+			}
+		}
+
+		int axis1 = (int)mOrientation, axis2 = (axis1 + 1) % 2;
+		Vector2i start = Vector2i::Constant(mMargin) + extra;
+
+		size_t numChildren = widget->children().size();
+		size_t child = 0;
+
+		Vector2i pos = start;
+		for (int i2 = 0; i2 < dim[axis2]; i2++) {
+			pos[axis1] = start[axis1];
+			for (int i1 = 0; i1 < dim[axis1]; i1++) {
+				Widget* w = nullptr;
+				do {
+					if (child >= numChildren)
+						return;
+					w = widget->children()[child++];
+				} while (!w->visible());
+
+				Vector2i ps = w->preferredSize(ctx);
+				Vector2i fs = w->fixedSize();
+				Vector2i targetSize(
+					fs[0] ? fs[0] : ps[0],
+					fs[1] ? fs[1] : ps[1]
+				);
+
+				Vector2i itemPos(pos);
+				for (int j = 0; j < 2; j++) {
+					int axis = (axis1 + j) % 2;
+					int item = j == 0 ? i1 : i2;
+					Alignment align = alignment(axis, item);
+
+					switch(align) {
+						case Alignment::Minimum:
+							break;
+						case Alignment::Middle:
+							itemPos[axis] += (grid[axis][item] - targetSize[axis]) / 2;
+							break;
+						case Alignment::Maximum:
+							itemPos[axis] += grid[axis][item] - targetSize[axis];
+							break;
+						case Alignment::Fill:
+							targetSize[axis] = fs[axis] ? fs[axis] : grid[axis][item];
+							break;
+					}
+				}
+				w->setPosition(itemPos);
+				w->setSize(targetSize);
+				w->performLayout(ctx);
+				pos[axis1] += grid[axis1][i1] + mSpacing[axis1];
+
+			}
+			pos[axis2] += grid[axis2][i2] + mSpacing[axis2];
+		}
+
 	}
 
 

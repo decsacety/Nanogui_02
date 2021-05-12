@@ -37,6 +37,28 @@ int main(int argc, char* argv[])
 
         gui->addVariable("bool", bvar);
 
+      
+
+        //The way to creaete a colorPicker
+        gui->addText("This is a useful text! Yerp!", 5/*set Left Margin 5 pixel*/);
+        gui->addVariable("Color", colval)
+            ->setCallback([&screen](const Color& c) {
+            screen->setBackcolor(c);
+        });
+
+
+
+        /// A new window with another layout
+        window = new Window(screen, "Grid of small widgets");
+        window->setPosition(Vector2i(425, 300));
+        GridLayout* layout =
+            new GridLayout(Orientation::Horizontal, 2,
+                Alignment::Middle, 15, 5);
+        layout->setColAlignment(
+            { Alignment::Maximum, Alignment::Fill });
+        layout->setSpacing(0, 10);
+        window->setLayout(layout);
+
         Label* label = new Label(window, "Popup buttons", "sans-bold");
         label->setLeftMargin(5);//设定左边距为5像素
         PopupButton* popupBtn = new PopupButton(window, "Popup", ENTYPO_ICON_EXPORT);
@@ -44,12 +66,25 @@ int main(int argc, char* argv[])
         popup->setLayout(new GroupLayout());
         new Label(popup, "Arbitrary widgets can be placed here");
         new CheckBox(popup, "A check box");
-
-        gui->addText("This is a useful text! Yerp!", 5/*set Left Margin 5 pixel*/);
-        gui->addVariable("Color", colval)
-            ->setCallback([&screen](const Color& c) {
+        //Another way to create a colorPicker without formHelper
+        label = new Label(window, "Color picker :", "sans-bold");
+        label->setLeftMargin(5);//设定左边距为5像素
+        auto cp = new ColorPicker(window, { 255, 120, 0, 255 });
+        cp->setFixedSize({ 100, 18 });
+        cp->setCallback([&screen](const Color& c) {
             screen->setBackcolor(c);
         });
+        CheckBox* cbox = new CheckBox(window, "Don`t Touch me~");
+        cbox->setCallback([&screen](bool d) {
+            static Color col;
+            if (d) {
+                col = screen->backColor();
+                screen->setBackcolor(Color(0, 0, 0, 0));
+            }
+            else
+                screen->setBackcolor(col);
+        });
+        /// Set Over 
 
 
         window2 = gui->addWindow(Vector2i(700, 100), "HuaQ");
@@ -62,6 +97,7 @@ int main(int argc, char* argv[])
             if (buttonOne->appendixText().size() > 17)
                 buttonOne->setAppendixText("HuaQ");
         },"HuaQ");//后面声明的是一个匿名函数作为button的功能。
+        buttonOne->setLeftMargin(5);//设定bu't'to左边界为5
 
         Label* appendixLabel = nullptr;
         gui->addButton("A button 1", [&appendixLabel]() {

@@ -44,6 +44,9 @@ namespace nanogui {
 		
 		bool pushed() const { return mPushed; }
 		void setPushed(bool pushed) { mPushed = pushed; }
+
+		int leftMargin() const { return mLeftMargin; }
+		void setLeftMargin(int leftmargin) { mLeftMargin = leftmargin; }
 		
 		std::function<void()> callback() const { return mCallback; }
 		void setCallback(const std::function<void()>& callback) { mCallback = callback; }
@@ -72,6 +75,8 @@ namespace nanogui {
 		std::function<void(bool)> mChangeCallback;//记得再添加一个参数为count的callback;
 		std::vector <Button*> mButtonGroup;
 
+		//手动设定左边界
+		int mLeftMargin;
 
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW

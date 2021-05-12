@@ -23,6 +23,7 @@ namespace nanogui {
 
         NANOGUI_EXPORT void setVisible(bool flag);
         NANOGUI_EXPORT void setBackcolor(const Color& c) { mBackground = c; }
+        NANOGUI_EXPORT Color backColor()const { return mBackground; }
         NANOGUI_EXPORT void performLayout();
         NANOGUI_EXPORT void drawAll();
         NANOGUI_EXPORT void setParent(Screen* subScreen);

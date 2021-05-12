@@ -10,6 +10,7 @@ namespace nanogui {
 		mIconPosition(IconPosition::LeftCentered), mPushed(false),
 		mFlags(NormalButton), mBackgroundColor(Color(0,0)),
 		mTextColor (Color(0,0)){
+		mLeftMargin = -1;
 	}
 
 	Vector2i Button::preferredSize(NVGcontext* ctx) const {
@@ -133,7 +134,8 @@ namespace nanogui {
 		NVGpaint bg = nvgLinearGradient(ctx, mPos.x(), mPos.y(), mPos.x(),
 			mPos.y() + mSize.y(), gradTop, gradBot);
 
-		mPos.x() = mTheme->mTabInnerMargin;//距离左侧边界统一设定为Tab的缩进距离。
+		if(mLeftMargin!=-1)
+			mPos.x() = mLeftMargin;//距离左侧边界统一设定自定义距离。
 		if (mCaption.size() <= 8)
 			mSize.x() = 60;
 		else

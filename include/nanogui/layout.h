@@ -27,6 +27,55 @@ namespace nanogui {
 		virtual ~Layout() {};
 	};
 
+	class NANOGUI_EXPORT BoxLayout : public Layout {
+	public:
+		/*
+		* \brief Construct a box layout which packs widgets in the given \c Orientation
+		* 
+		* \param orientation
+		*	The Orientation this BoxLayout expands along
+		* 
+		* \param margin
+		*	Margin aorund the layout container
+		* 
+		* \param spacing
+		*	Extra spacing placed between widgets
+		*/
+		BoxLayout(Orientation orentation, Alignment alignment = Alignment::Middle,
+			int margin = 0, int spacing = 0);
+
+		/// The Orientation this BoxLayout is using
+		Orientation orientation() const { return mOrientation; }
+
+		/// Sets ths Orientation of this BoxLayout
+		void setOrientation(Orientation orientation) { mOrientation = orientation; }
+
+		int margin() const { return mMargin; }
+
+		void setMargin(int margin) { mMargin = margin; }
+
+		int spacing() const { return mSpacing; }
+
+		void setSpacing(int s) { mSpacing = s; }
+
+		// Implementation of the layout interface 
+		virtual Vector2i preferredSize(NVGcontext* ctx, const Widget* widget) const override;
+
+		virtual void performLayout(NVGcontext* ctx, Widget* widget) const override;
+
+	protected:
+		/// The Orientation of this BoxLayout
+		Orientation mOrientation;
+
+		/// The Alignment fo this BoxLayout
+		Alignment mAlignment;
+
+		int mMargin;
+
+		int mSpacing;
+
+	};
+
 	class NANOGUI_EXPORT GroupLayout : public Layout {
 	public:
 		/*
@@ -82,6 +131,110 @@ namespace nanogui {
 		int mSpacing;
 		int mGroupSpacing;
 		int mGroupIndent;
+
+	};
+
+	/*
+	* \class GridLayout layout.h nanogui/layout.h
+	* 
+	* Widgets are arranged in a grid that has a fixed grid resolution \c resolution
+	* along one of the axes.  The layout orientation indicates the fixed dimension;
+	* widgets are also appended on this axis. The spacing between items can be 
+	* specified per axis. The horizontal/vertical alignment can be specified per row
+	* and column.
+	*/
+	class NANOGUI_EXPORT GridLayout :public Layout {
+	public: 
+		/*
+		* Create a 2-column grid layout by default.
+		* 
+		* \param orientation 
+		*	The fixed dimension of this GridLayout
+		* 
+		* \param resolution
+		*	The number of rows or columns in the grid(depending on the Orientation).
+		* 
+		* \param alignment
+		*	How widgets should be aligned within each grid cell.
+		* 
+		* \param marigin 
+		*	The amount of spacing to add around the border of the grid
+		* 
+		* \param spacing
+		*	The amount of spacng between widgets added to the grid
+		*/
+		GridLayout(Orientation orientation = Orientation::Horizontal,
+			int resolution = 2, Alignment alignment = Alignment::Middle, int margin = 0, int spacing = 0) :
+			mOrientation(orientation), mResolution(resolution), mMargin(margin) {
+			mDefaultAlignment[0] = mDefaultAlignment[1] = alignment;
+			mSpacing = Vector2i::Constant(spacing);
+		}
+
+		/// The Orientation of this Gridlayout
+		Orientation orientation() const { return mOrientation; }
+
+		void setOrientation(Orientation o) {
+			mOrientation = o;
+		}
+
+		int resolution() const { return mResolution; }
+
+		void setResolution(int re) { mResolution = re; }
+
+		int spacing(int axis) const { return mSpacing[axis]; }
+
+		void setSpacing(int axis, int spacing) { mSpacing[axis] = spacing; }
+
+		void setSpacing(int spacing) { mSpacing[0] = mSpacing[1] = spacing; }
+
+		int margin() const { return mMargin; }
+
+		void SetMargin(int margin) { mMargin = margin; }
+
+		/*
+		* The alignment of the specitfied axis (row or column number, dependeing on 
+		* the Orientation) at the specified index of that row or column.
+		*/
+		Alignment alignment(int axis, int item) const {
+			if (item < (int)mAlignment[axis].size())
+				return mAlignment[axis][item];
+			else
+				return mDefaultAlignment[axis];
+		}
+
+		/// Sets the Alignment of the columns
+		void setColAlignment(Alignment value) { mDefaultAlignment[0] = value; }
+
+		void setRowAlignment(Alignment value) { mDefaultAlignment[1] = value; }
+
+		void setColAlignment(const std::vector<Alignment>& value) { mAlignment[0] = value; }
+
+		void setRowAlignment(const std::vector<Alignment>& value) { mAlignment[1] = value; }
+
+		// Implemtation of the layout interface
+
+		virtual Vector2i preferredSize(NVGcontext* ctx, const Widget* widget) const override;
+
+		virtual void performLayout(NVGcontext* ctx, Widget* widget) const override;
+
+	protected:
+
+		///Compute the maxinmum row and colunm sizes
+		void computeLayout(NVGcontext* ctx, const Widget* widget,
+			std::vector<int>* grid) const;
+
+
+	protected:
+		Orientation mOrientation;
+		Alignment mDefaultAlignment[2];
+
+		std::vector<Alignment> mAlignment[2];
+
+		int mResolution;
+
+		Vector2i mSpacing;
+
+		int mMargin;
 
 	};
 

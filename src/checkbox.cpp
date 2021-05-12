@@ -59,7 +59,7 @@ namespace nanogui {
 		nvgFillColor(ctx,
 			mEnabled ? mTheme->mTextColor : mTheme->mDisabledTextColor);
 		nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
-		nvgText(ctx, mPos.x() + 1.6f * fontSize(), mPos.y() + mSize.y() * 0.5f,
+		nvgText(ctx, mPos.x() + 2.f * fontSize(), mPos.y() + mSize.y() * 0.5f,
 			mCaption.c_str(), nullptr);
 
 		NVGpaint bg = nvgBoxGradient(ctx, mPos.x() + 1.5f, mPos.y() + 1.5f,
