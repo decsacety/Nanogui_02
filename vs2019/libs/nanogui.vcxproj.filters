@@ -60,6 +60,9 @@
     <ClInclude Include="..\..\include\nanogui\checkbox.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\combobox.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -114,6 +117,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\checkbox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\combobox.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

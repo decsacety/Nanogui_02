@@ -9,6 +9,7 @@
 #include<nanogui/textbox.h>
 #include<nanogui/colorpicker.h>
 #include<nanogui/checkbox.h>
+#include<nanogui/combobox.h>
 
 namespace nanogui {
 
@@ -141,6 +142,32 @@ namespace nanogui {
 
 			/// Returns the value of \ref nanogui::CheckBox::checked
 			bool value() const { return checked(); }
+		public:
+			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+		};
+
+		/*
+		* \tparam T
+		*		The type being used inside the ComboBox
+		*/
+		template <typename T> class FormWidget<T, typename std::is_enum<T>::type> :public ComboBox {
+		public:
+			/// Creates a new FormWidget with underlying tyoe ComboBox.
+			FormWidget(Widget* p) :ComboBox(p) {}
+
+			/// Pass-through function for \ref nanogui::ComboBox::selectedIndex
+			T value() const { return (T)selectedIndex(); }
+
+			void setValue(T value) { setSelectedIndex((int)value); mSelectedIndex = (int)value; }
+
+			/// Pass_through function for \red nanogui::ComboBox::setCallback
+			void setCallback(const std::function<void(const T&)>& cb) {
+				ComboBox::setCallback([cb](int v) {cb((T)v); });
+			}
+
+			/// Pass-through function for \ref nanogui::Widget::setEnabled
+			void setEditable(bool e) {setEnabled(e);}
+
 		public:
 			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 		};

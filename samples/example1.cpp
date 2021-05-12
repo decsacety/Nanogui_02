@@ -2,6 +2,12 @@
 #include <nanogui/formhelper.h>
 using namespace nanogui;
 
+enum test_enum {
+    Item1 = 0,
+    Item2,
+    Item3
+};
+
 int main(int argc, char* argv[])
 {
     nanogui::init();
@@ -32,12 +38,12 @@ int main(int argc, char* argv[])
         ref<Window> window2;
 
         window = gui->addWindow(Vector2i(10, 10), "Form helper example");
-
         window->setLayout(new GroupLayout());
 
+        test_enum enumval = Item1;
+        gui->addVariable("Enumeration", enumval, enabled)
+            ->setItems({ "Item 1", "Item 2", "Item 3" });
         gui->addVariable("bool", bvar);
-
-      
 
         //The way to creaete a colorPicker
         gui->addText("This is a useful text! Yerp!", 5/*set Left Margin 5 pixel*/);
@@ -59,6 +65,7 @@ int main(int argc, char* argv[])
         layout->setSpacing(0, 10);
         window->setLayout(layout);
 
+
         Label* label = new Label(window, "Popup buttons", "sans-bold");
         label->setLeftMargin(5);//Éè¶¨×ó±ß¾àÎª5ÏñËØ
         PopupButton* popupBtn = new PopupButton(window, "Popup", ENTYPO_ICON_EXPORT);
@@ -66,6 +73,11 @@ int main(int argc, char* argv[])
         popup->setLayout(new GroupLayout());
         new Label(popup, "Arbitrary widgets can be placed here");
         new CheckBox(popup, "A check box");
+
+        label = new Label(window, "EnumChoice", "sans-bold");
+        label->setLeftMargin(5);//Éè¶¨×ó±ß¾àÎª5ÏñËØ
+        ComboBox* combox = new ComboBox(window, { "Item 1", "Item 2", "Item 3" });
+
         //Another way to create a colorPicker without formHelper
         label = new Label(window, "Color picker :", "sans-bold");
         label->setLeftMargin(5);//Éè¶¨×ó±ß¾àÎª5ÏñËØ
@@ -84,6 +96,8 @@ int main(int argc, char* argv[])
             else
                 screen->setBackcolor(col);
         });
+
+       
         /// Set Over 
 
 

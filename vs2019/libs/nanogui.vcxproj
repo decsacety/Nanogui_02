@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\include\nanogui\checkbox.h" />
     <ClInclude Include="..\..\include\nanogui\colorpicker.h" />
     <ClInclude Include="..\..\include\nanogui\colorwheel.h" />
+    <ClInclude Include="..\..\include\nanogui\combobox.h" />
     <ClInclude Include="..\..\include\nanogui\common.h" />
     <ClInclude Include="..\..\include\nanogui\formhelper.h" />
     <ClInclude Include="..\..\include\nanogui\glutil.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="..\..\src\checkbox.cpp" />
     <ClCompile Include="..\..\src\colorpicker.cpp" />
     <ClCompile Include="..\..\src\colorwheel.cpp" />
+    <ClCompile Include="..\..\src\combobox.cpp" />
     <ClCompile Include="..\..\src\common.cpp" />
     <ClCompile Include="..\..\src\fonts\nanogui_resources.cpp" />
     <ClCompile Include="..\..\src\glad.c" />
