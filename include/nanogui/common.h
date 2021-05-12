@@ -1,17 +1,68 @@
 #pragma once
-#include <Eigen/Core>
-#if defined(NANOGUI_SHARED)
-#    define NANOGUI_EXPORT __declspec(dllexport)
-#  else
-#    define NANOGUI_EXPORT __declspec(dllimport)
-#  endif
 
-//#pragma once
-//#ifdef _DLL
-//#    define NANOGUI_EXPORT __declspec(dllexport)
-//#  else
-//#    define NANOGUI_EXPORT __declspec(dllimport)
-//#  endif
+#if defined(_WIN32)
+#  if defined(NANOGUI_BUILD)
+/* Quench a few warnings on when compiling NanoGUI on Windows */
+#    pragma warning(disable : 4127) // warning C4127: conditional expression is constant
+#    pragma warning(disable : 4244) // warning C4244: conversion from X to Y, possible loss of data
+#  endif
+#  pragma warning(disable : 4251) // warning C4251: class X needs to have dll-interface to be used by clients of class Y
+#  pragma warning(disable : 4714) // warning C4714: function X marked as __forceinline not inlined
+#  pragma warning(disable : 4127) // warning C4127: conditional expression is constant
+#endif
+
+
+#include <Eigen/Core>
+#if !defined(NAMESPACE_BEGIN) || defined(DOXYGEN_DOCUMENTATION_BUILD)
+    /**
+     * \brief Convenience macro for namespace declarations
+     *
+     * The macro ``NAMESPACE_BEGIN(nanogui)`` will expand to ``namespace
+     * nanogui {``. This is done to hide the namespace scope from editors and
+     * C++ code formatting tools that may otherwise indent the entire file.
+     * The corresponding ``NAMESPACE_END`` macro also lists the namespace
+     * name for improved readability.
+     *
+     * \param name
+     *     The name of the namespace scope to open
+     */
+#define NAMESPACE_BEGIN(name) namespace name {
+#endif
+#if !defined(NAMESPACE_END) || defined(DOXYGEN_DOCUMENTATION_BUILD)
+     /**
+      * \brief Convenience macro for namespace declarations
+      *
+      * Closes a namespace (counterpart to ``NAMESPACE_BEGIN``)
+      * ``NAMESPACE_END(nanogui)`` will expand to only ``}``.
+      *
+      * \param name
+      *     The name of the namespace scope to close
+      */
+#define NAMESPACE_END(name) }
+#endif
+
+#if defined(NANOGUI_SHARED)
+#  if defined(_WIN32)
+#    if defined(NANOGUI_BUILD)
+#      define NANOGUI_EXPORT __declspec(dllexport)
+#    else
+#      define NANOGUI_EXPORT __declspec(dllimport)
+#    endif
+#  elif defined(NANOGUI_BUILD)
+#    define NANOGUI_EXPORT __attribute__ ((visibility("default")))
+#  else
+#    define NANOGUI_EXPORT
+#  endif
+#else
+      /**
+       * If the build flag ``NANOGUI_SHARED`` is defined, this directive will expand
+       * to be the platform specific shared library import / export command depending
+       * on the compilation stage.  If undefined, it expands to nothing. **Do not**
+       * define this directive on your own.
+       */
+#    define NANOGUI_EXPORT
+#endif
+
 
 
 // These will produce broken links in the docs build
@@ -31,7 +82,7 @@ struct GLFWcursor;
 #define SYSTEM_COMMAND_MOD GLFW_MOD_CONTROL
 
 namespace nanogui {
-    NANOGUI_EXPORT enum class Cursor {
+    enum class Cursor {
         Arrow = 0,
         IBeam,
         Crosshair,
@@ -74,7 +125,7 @@ namespace nanogui {
     //    float a;
     //};
 
-    NANOGUI_EXPORT class Color : public Eigen::Vector4f {
+    class Color : public Eigen::Vector4f {
         typedef Eigen::Vector4f Base;
     public:
         Color() :Color(0, 0, 0, 0) {}
@@ -103,7 +154,7 @@ namespace nanogui {
         Color(float r, float g, float b, float a) :
             Color(Eigen::Vector4f(r, g, b, a)) {}
 
-        Color(int r, int g, int b, int a) : Color(Eigen::Vector4f(r, g, b, a)) {}
+        Color(int r, int g, int b, int a) : Color(Eigen::Vector4i(r, g, b, a)) {}
 
         template<typename Derived> Color(const Eigen::MatrixBase<Derived>& p)
             : Base(p) {}

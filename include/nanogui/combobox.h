@@ -3,7 +3,7 @@
 * 
 */
 
-#pragma oonce
+#pragma once
 
 #include <nanogui/popupbutton.h>
 

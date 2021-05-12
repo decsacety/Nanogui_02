@@ -1,13 +1,14 @@
 #pragma once
-#include<nanogui/common.h>
+#pragma warning(disable : 4091)//可控的c4091警告
 #include<nanogui/widget.h>
 #include<iostream>
 
 namespace nanogui {
 	NANOGUI_EXPORT class Window :public Widget{
+		friend class Popup;
 	public:
 		NANOGUI_EXPORT Window(Widget* parent, const char* title = "Untitle");
-		const std::string title() const { std::string l = mTitle; return l; }
+		const std::string& title() const { return mTitle; }
 
 		bool modal() const { return mModal; }
 		void setModal(bool modal) { mModal = modal; }
@@ -32,6 +33,6 @@ namespace nanogui {
 		int pre_mSize_y;//Y轴历史大小
 		bool isFold;
 	public:
-			EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	};
 }

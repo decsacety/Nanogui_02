@@ -28,10 +28,12 @@ namespace nanogui {
 				mPushed = true;
 			}
 			else if (mPushed) {
-				if (contains(p));
-				mChecked = !mChecked;
-				if (mCallback)
-					mCallback(mChecked);
+				if (contains(p)) {
+					mChecked = !mChecked;
+					if (mCallback)
+						mCallback(mChecked);
+				}
+				mPushed = false;
 			}
 			return true;
 		}

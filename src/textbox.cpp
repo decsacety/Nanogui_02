@@ -2,6 +2,7 @@
 * src/textbox.cpp --Fancy textbox with builtin regular 
 * expression-based validation
 */
+#pragma warning(disable : 4267) //有两个地方为了确定边界使用了可控的int转size_t
 
 #include<nanogui/window.h>
 #include<nanogui/screen.h>
