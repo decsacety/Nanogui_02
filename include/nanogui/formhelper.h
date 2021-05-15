@@ -113,7 +113,7 @@ namespace nanogui {
 		std::string mLabelFontName = "sans";
 		Vector2i mFixedSize = Vector2i(0, 20);
 		int mGroupFontSize = 12;
-		int mLabelFontSize = 14;
+		int mLabelFontSize = 13;
 		int mWidgetFontSize = 12;
 		int mPreGroupSpacing = 5;
 		int mPostGroupSpacing = 5;

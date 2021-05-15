@@ -53,14 +53,22 @@ int main(int argc, char* argv[])
             screen->setBackcolor(c);
         });
 
+
+        /// The TabWidget Window
         window = new Window(screen, "Misc. widgets");
-        window->setPosition(Vector2i(225, 15));
+        window->setPosition(Vector2i(825, 15));
         window->setLayout(new GroupLayout());
 
         TabWidget* tabWidget = window->add<TabWidget>();
 
-        Widget* layer = tabWidget->createTab("Color Wheel");
+        Widget* layer = tabWidget->createTab("Function Graph");
         layer->setLayout(new GroupLayout());
+        layer->add<Label>("Function graph widget", "sans-bold");
+
+        layer = tabWidget->createTab("Color Wheel");
+        layer->setLayout(new GroupLayout());
+        layer->add<Label>("Color wheel widget", "sans-bold");
+        layer->add<ColorWheel>();
 
         /// A new window with another layout
         window = new Window(screen, "Grid of small widgets");

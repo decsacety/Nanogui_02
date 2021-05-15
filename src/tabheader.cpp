@@ -63,8 +63,8 @@ namespace nanogui {
         nvgIntersectScissor(ctx, xPos, yPos, width + 1, height);
         if (!active) {
             //Background gradients
-            NVGcolor gradTop = theme->mButtonGradientTopPushed;
-            NVGcolor gradBot = theme->mButtonGradientBotPushed;
+            NVGcolor gradTop = theme->mBorderDark;
+            NVGcolor gradBot = theme->mBorderDark;
 
             // Draw the backGroud
             nvgBeginPath(ctx);
@@ -74,9 +74,11 @@ namespace nanogui {
                 gradTop, gradBot);
             nvgFillPaint(ctx, backgroundColor);
             nvgFill(ctx);
+
+           
         }
 
-        if (active) {
+        if (1/*ԭΪ active*/) {
             nvgBeginPath(ctx);
             nvgStrokeWidth(ctx, 1.0f);
             nvgRoundedRect(ctx, xPos + 0.5f, yPos + 1.5f, width,
