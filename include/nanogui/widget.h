@@ -18,6 +18,13 @@ namespace nanogui {
 		void removeChild(int index);
 		const Widget* childAt(int index) const { return mChildren[index]; }
 		Widget* childAt(int index) { return mChildren[index]; }
+		int childIndex(Widget* widget) const;
+
+		template<typename WidgetClass, typename... Args>
+		WidgetClass* add(const Args&... args) {
+			return new WidgetClass(this, args...);
+		}
+
 		Window* window();
 		Screen* screen();
 

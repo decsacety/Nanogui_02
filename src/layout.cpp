@@ -144,12 +144,12 @@ namespace nanogui {
 	}
 
 	void GroupLayout::performLayout(NVGcontext* ctx, Widget* widget) const {
-		int height = mMargin, availabelWidth =
+		int height = mMargin, availableWidth =
 			(widget->fixedWidth() ? widget->fixedWidth() : widget->width()) - 2 * mMargin;
 
 		const Window* window = dynamic_cast<const Window*>(widget);
 		if (window && !window->title().empty())
-			height += widget->theme()->mWindowHeaderHeight-mMargin/2;
+			height += widget->theme()->mWindowHeaderHeight - mMargin / 2;
 
 		bool first = true, indent = false;
 		for (auto c : widget->children()) {
@@ -161,7 +161,7 @@ namespace nanogui {
 			first = false;
 
 			bool indentCur = indent && label == nullptr;
-			Vector2i ps = Vector2i(availabelWidth - (indentCur ? mGroupIndent : 0),
+			Vector2i ps = Vector2i(availableWidth - (indentCur ? mGroupIndent : 0),
 				c->preferredSize(ctx).y());
 			Vector2i fs = c->fixedSize();
 

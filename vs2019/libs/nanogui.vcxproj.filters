@@ -63,6 +63,15 @@
     <ClInclude Include="..\..\include\nanogui\combobox.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\tabwidget.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\tabheader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\stactedwidget.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -120,6 +129,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\combobox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tabheader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stackedwidget.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tabwidget.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

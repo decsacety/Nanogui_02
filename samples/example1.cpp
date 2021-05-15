@@ -1,5 +1,6 @@
 #include <nanogui/screen.h>
 #include <nanogui/formhelper.h>
+#include<nanogui/tabwidget.h>
 using namespace nanogui;
 
 enum test_enum {
@@ -31,7 +32,7 @@ int main(int argc, char* argv[])
         int count = 0;
         int ivar = 11111111;//ÏÔÊ¾Êý×Ö
         bool bvar = false;
-        float fvar = 123123.3;
+        float fvar = 123123.3f;
         Color colval(0.29f, 0.56f, 0.89f, 1.f);
         FormHelper* gui = new FormHelper(screen);
         ref<Window> window;
@@ -52,7 +53,14 @@ int main(int argc, char* argv[])
             screen->setBackcolor(c);
         });
 
+        window = new Window(screen, "Misc. widgets");
+        window->setPosition(Vector2i(225, 15));
+        window->setLayout(new GroupLayout());
 
+        TabWidget* tabWidget = window->add<TabWidget>();
+
+        Widget* layer = tabWidget->createTab("Color Wheel");
+        layer->setLayout(new GroupLayout());
 
         /// A new window with another layout
         window = new Window(screen, "Grid of small widgets");

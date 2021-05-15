@@ -33,6 +33,9 @@
     <ClInclude Include="..\..\include\nanogui\popup.h" />
     <ClInclude Include="..\..\include\nanogui\popupbutton.h" />
     <ClInclude Include="..\..\include\nanogui\screen.h" />
+    <ClInclude Include="..\..\include\nanogui\stactedwidget.h" />
+    <ClInclude Include="..\..\include\nanogui\tabheader.h" />
+    <ClInclude Include="..\..\include\nanogui\tabwidget.h" />
     <ClInclude Include="..\..\include\nanogui\textbox.h" />
     <ClInclude Include="..\..\include\nanogui\theme.h" />
     <ClInclude Include="..\..\include\nanogui\widget.h" />
@@ -54,6 +57,9 @@
     <ClCompile Include="..\..\src\popup.cpp" />
     <ClCompile Include="..\..\src\popupbutton.cpp" />
     <ClCompile Include="..\..\src\screen.cpp" />
+    <ClCompile Include="..\..\src\stackedwidget.cpp" />
+    <ClCompile Include="..\..\src\tabheader.cpp" />
+    <ClCompile Include="..\..\src\tabwidget.cpp" />
     <ClCompile Include="..\..\src\textbox.cpp" />
     <ClCompile Include="..\..\src\theme.cpp" />
     <ClCompile Include="..\..\src\widget.cpp" />
