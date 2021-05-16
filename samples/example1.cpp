@@ -1,6 +1,7 @@
 #include <nanogui/screen.h>
 #include <nanogui/formhelper.h>
 #include<nanogui/tabwidget.h>
+#include<nanogui/slider.h>
 using namespace nanogui;
 
 enum test_enum {
@@ -41,6 +42,7 @@ int main(int argc, char* argv[])
         window = gui->addWindow(Vector2i(10, 10), "Form helper example");
         window->setLayout(new GroupLayout());
 
+        ///窗口一
         test_enum enumval = Item1;
         gui->addVariable("Enumeration", enumval, enabled)
             ->setItems({ "Item 1", "Item 2", "Item 3" });
@@ -52,9 +54,17 @@ int main(int argc, char* argv[])
             ->setCallback([&screen](const Color& c) {
             screen->setBackcolor(c);
         });
+        //Create a sliderBox
+        Label *label1 = new Label(window, "Slider and text box", "sans-bold");
+        label1->setLeftMargin(5);
+        Widget* panel1 = new Widget(window);
+        Slider* slider1 = new Slider(window);
+        slider1->setValue(0.5f);
+        //slider1->setFixedWidth(80);
 
+        
 
-        /// The TabWidget Window
+        /// The TabWidget Window/窗口二
         window = new Window(screen, "Misc. widgets");
         window->setPosition(Vector2i(825, 15));
         window->setLayout(new GroupLayout());
@@ -70,7 +80,9 @@ int main(int argc, char* argv[])
         layer->add<Label>("Color wheel widget", "sans-bold");
         layer->add<ColorWheel>();
 
-        /// A new window with another layout
+
+
+        /// A new window with another layout/窗口三
         window = new Window(screen, "Grid of small widgets");
         window->setPosition(Vector2i(425, 300));
         GridLayout* layout =
@@ -80,7 +92,6 @@ int main(int argc, char* argv[])
             { Alignment::Maximum, Alignment::Fill });
         layout->setSpacing(0, 10);
         window->setLayout(layout);
-
 
         Label* label = new Label(window, "Popup buttons", "sans-bold");
         label->setLeftMargin(5);//设定左边距为5像素
@@ -93,6 +104,17 @@ int main(int argc, char* argv[])
         label = new Label(window, "EnumChoice", "sans-bold");
         label->setLeftMargin(5);//设定左边距为5像素
         ComboBox* combox = new ComboBox(window, { "Item 1", "Item 2", "Item 3" });
+
+        //Create a sliderBox
+        label = new Label(window, "BackColor", "sans-bold");
+        label->setLeftMargin(5);
+        Slider* slider = new Slider(window);
+        slider->setValue(100);
+        slider->setRange({ 0, 255 });
+        slider->setCallback([&screen1](float c) {
+            screen1->setBackcolor(Color((int)c,255));
+        });
+
 
         //Another way to create a colorPicker without formHelper
         label = new Label(window, "Color picker :", "sans-bold");
@@ -112,11 +134,10 @@ int main(int argc, char* argv[])
             else
                 screen->setBackcolor(col);
         });
-
-       
         /// Set Over 
 
 
+        /// 窗口四
         window2 = gui->addWindow(Vector2i(700, 100), "HuaQ");
         gui->addText("This is a useful text!");
         gui->addText("No matter where you are, it`s still a life.");
