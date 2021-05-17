@@ -75,6 +75,21 @@
     <ClInclude Include="..\..\include\nanogui\slider.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\imageview.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\imagepanel.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\vscrollpanel.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\opengl.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\nanogui.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -144,6 +159,18 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\slider.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\imageview.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\imagepanel.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vscrollpanel.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\glutil.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

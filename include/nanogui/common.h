@@ -13,6 +13,7 @@
 
 
 #include <Eigen/Core>
+#include <vector>
 #if !defined(NAMESPACE_BEGIN) || defined(DOXYGEN_DOCUMENTATION_BUILD)
     /**
      * \brief Convenience macro for namespace declarations
@@ -195,6 +196,11 @@ namespace nanogui {
     using Vector3f = Eigen::Vector3f;
     using Vector4i = Eigen::Vector4i;
     using Vector4f = Eigen::Vector4f;
+    using Matrix3f = Eigen::Matrix3f;
+    using Matrix4f = Eigen::Matrix4f;
+    using MatrixXf = Eigen::MatrixXf;
+
+    using MatrixXu = Eigen::Matrix < uint32_t, Eigen::Dynamic, Eigen::Dynamic >;
 
     // skip the forward declarations for the docs
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -210,8 +216,22 @@ namespace nanogui {
     class Label;
     class Button;
 #endif
-
+    /**
+     * \brief Convert a single UTF32 character code to UTF8.
+     *
+     * \rst
+     * NanoGUI uses this to convert the icon character codes
+     * defined in :ref:`file_nanogui_entypo.h`.
+     * \endrst
+     *
+     * \param c
+     *     The UTF32 character to be converted.
+     */
     extern NANOGUI_EXPORT std::array<char, 8> utf8(int c);
+
+    /// Load a directory of PNG images and upload them to the GPU (suitable for use with ImagePanel)
+    extern NANOGUI_EXPORT std::vector<std::pair<int, std::string>>
+        loadImageDirectory(NVGcontext* ctx, const std::string& path);
 }
 
 

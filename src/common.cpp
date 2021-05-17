@@ -1,6 +1,9 @@
 #include <nanogui/common.h>
 #include <windows.h>
+#include <thread>
+#include <chrono>
 #include <GLFW/glfw3.h>
+#include <nanovg.h>
 #include <iostream>
 #include <nanogui/screen.h>
 #include <map>
@@ -81,6 +84,42 @@ namespace nanogui {
         return seq;
     }
 
+    std::vector<std::pair<int, std::string>>
+        loadImageDirectory(NVGcontext* ctx, const std::string& path) {
+        std::vector<std::pair<int, std::string> > result;
+#if !defined(_WIN32)
+        DIR* dp = opendir(path.c_str());
+        if (!dp)
+            throw std::runtime_error("Could not open image directory!");
+        struct dirent* ep;
+        while ((ep = readdir(dp))) {
+            const char* fname = ep->d_name;
+#else
+        WIN32_FIND_DATA ffd;
+        std::string searchPath = path + "/*.*";
+        HANDLE handle = FindFirstFileA(searchPath.c_str(), &ffd);
+        if (handle == INVALID_HANDLE_VALUE)
+            throw std::runtime_error("Could not open image directory!");
+        do {
+            const char* fname = ffd.cFileName;
+#endif
+            if (strstr(fname, "png") == nullptr)
+                continue;
+            std::string fullName = path + "/" + std::string(fname);
+            int img = nvgCreateImage(ctx, fullName.c_str(), 0);
+            if (img == 0)
+                throw std::runtime_error("Could not open image data!");
+            result.push_back(
+                std::make_pair(img, fullName.substr(0, fullName.length() - 4)));
+#if !defined(_WIN32)
+        }
+        closedir(dp);
+#else
+        } while (FindNextFileA(handle, &ffd) != 0);
+        FindClose(handle);
+#endif
+        return result;
+    }
     inline Color::operator const NVGcolor& () const {
         return reinterpret_cast<const NVGcolor&>(*this->data());
     }

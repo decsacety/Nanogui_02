@@ -1,7 +1,11 @@
-#include <nanogui/screen.h>
-#include <nanogui/formhelper.h>
-#include<nanogui/tabwidget.h>
-#include<nanogui/slider.h>
+#include <nanogui/nanogui.h>
+//#include <nanogui/screen.h>
+//#include <nanogui/formhelper.h>
+//#include<nanogui/tabwidget.h>
+//#include<nanogui/slider.h>
+//#include<nanogui/vscrollpanel.h>
+//#include<nanogui/imagepanel.h>
+//#include<nanogui/imageview.h>
 using namespace nanogui;
 
 enum test_enum {
@@ -9,6 +13,12 @@ enum test_enum {
     Item2,
     Item3
 };
+
+
+
+using imagesDataType = std::vector<std::pair<GLTexture, GLTexture::handleType>>;
+imagesDataType mImagesData;
+int mCurrentImage;
 
 int main(int argc, char* argv[])
 {
@@ -113,6 +123,66 @@ int main(int argc, char* argv[])
         slider->setRange({ 0, 255 });
         slider->setCallback([&screen1](float c) {
             screen1->setBackcolor(Color((int)c,255));
+        });
+
+
+
+        //Image
+        std::vector < std::pair<int, std::string >>
+            icons = loadImageDirectory(screen->nvgContext(), "icons");
+#if defined(_WIN32)
+        std::string resourcesFolderPath("../resources/");
+#else
+        std::string resourcesFolderPath("./");
+#endif
+
+
+        new Label(window, "Image panel & scroll panel", "sans-bold");
+        PopupButton* imagePanelBtn = new PopupButton(window, "Image Panel");
+        imagePanelBtn->setIcon(ENTYPO_ICON_FOLDER);
+        popup = imagePanelBtn->popup();
+        VScrollPanel* vscroll = new VScrollPanel(popup);
+        ImagePanel* imgPanel = new ImagePanel(vscroll);
+        imgPanel->setImages(icons);
+        popup->setFixedSize(Vector2i(245, 150));
+
+        auto imageWindow = new Window(screen, "Selected image");
+        imageWindow->setPosition(Vector2i(710, 15));
+        imageWindow->setLayout(new GroupLayout());
+
+        // Load all of the images by creating a GLTexture object and saving the pixel data.
+        for (auto& icon : icons) {
+            GLTexture texture(icon.second);
+            auto data = texture.load(resourcesFolderPath + icon.second + ".png");
+            mImagesData.emplace_back(std::move(texture), std::move(data));
+        }
+
+        // Set the first texture
+        auto imageView = new ImageView(imageWindow, mImagesData[0].first.texture());
+        mCurrentImage = 0;
+        // Change the active textures.
+        imgPanel->setCallback([screen, imageView](int i) {
+            imageView->bindImage(mImagesData[i].first.texture());
+            mCurrentImage = i;
+            std::cout << "Selected item " << i << '\n';
+        });
+        imageView->setGridThreshold(20);
+        imageView->setPixelInfoThreshold(20);
+        imageView->setPixelInfoCallback(
+            [screen, imageView](const Vector2i& index) -> std::pair<std::string, Color> {
+            auto& imageData = mImagesData[mCurrentImage].second;
+            auto& textureSize = imageView->imageSize();
+            std::string stringData;
+            uint16_t channelSum = 0;
+            for (int i = 0; i != 4; ++i) {
+                auto& channelData = imageData[4 * index.y() * textureSize.x() + 4 * index.x() + i];
+                channelSum += channelData;
+                stringData += (std::to_string(static_cast<int>(channelData)) + "\n");
+            }
+            float intensity = static_cast<float>(255 - (channelSum / 4)) / 255.0f;
+            float colorScale = intensity > 0.5f ? (intensity + 1) / 2 : intensity / 2;
+            Color textColor = Color(colorScale, 1.0f);
+            return { stringData, textColor };
         });
 
 

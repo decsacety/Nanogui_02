@@ -36,6 +36,10 @@ namespace nanogui {
         NANOGUI_EXPORT bool scrollCallbackEvent(double x, double y);
         NANOGUI_EXPORT bool resizeCallbackEvent(int width, int height);
 
+        NANOGUI_EXPORT float pixelRatio() const { return mPixelRatio; }
+        /// Return a pointer to the underlying nanoVG draw context
+        NANOGUI_EXPORT NVGcontext *nvgContext() { return mNVGContext; }
+
         NANOGUI_EXPORT void updateFocus(Widget* widget);
         NANOGUI_EXPORT void drawWidgets();
         NANOGUI_EXPORT void moveWindowToFront(Window* window);

@@ -27,9 +27,13 @@
     <ClInclude Include="..\..\include\nanogui\common.h" />
     <ClInclude Include="..\..\include\nanogui\formhelper.h" />
     <ClInclude Include="..\..\include\nanogui\glutil.h" />
+    <ClInclude Include="..\..\include\nanogui\imagepanel.h" />
+    <ClInclude Include="..\..\include\nanogui\imageview.h" />
     <ClInclude Include="..\..\include\nanogui\label.h" />
     <ClInclude Include="..\..\include\nanogui\layout.h" />
+    <ClInclude Include="..\..\include\nanogui\nanogui.h" />
     <ClInclude Include="..\..\include\nanogui\object.h" />
+    <ClInclude Include="..\..\include\nanogui\opengl.h" />
     <ClInclude Include="..\..\include\nanogui\popup.h" />
     <ClInclude Include="..\..\include\nanogui\popupbutton.h" />
     <ClInclude Include="..\..\include\nanogui\screen.h" />
@@ -39,6 +43,7 @@
     <ClInclude Include="..\..\include\nanogui\tabwidget.h" />
     <ClInclude Include="..\..\include\nanogui\textbox.h" />
     <ClInclude Include="..\..\include\nanogui\theme.h" />
+    <ClInclude Include="..\..\include\nanogui\vscrollpanel.h" />
     <ClInclude Include="..\..\include\nanogui\widget.h" />
     <ClInclude Include="..\..\include\nanogui\window.h" />
   </ItemGroup>
@@ -51,6 +56,9 @@
     <ClCompile Include="..\..\src\common.cpp" />
     <ClCompile Include="..\..\src\fonts\nanogui_resources.cpp" />
     <ClCompile Include="..\..\src\glad.c" />
+    <ClCompile Include="..\..\src\glutil.cpp" />
+    <ClCompile Include="..\..\src\imagepanel.cpp" />
+    <ClCompile Include="..\..\src\imageview.cpp" />
     <ClCompile Include="..\..\src\label.cpp" />
     <ClCompile Include="..\..\src\layout.cpp" />
     <ClCompile Include="..\..\src\nanovg.c" />
@@ -64,6 +72,7 @@
     <ClCompile Include="..\..\src\tabwidget.cpp" />
     <ClCompile Include="..\..\src\textbox.cpp" />
     <ClCompile Include="..\..\src\theme.cpp" />
+    <ClCompile Include="..\..\src\vscrollpanel.cpp" />
     <ClCompile Include="..\..\src\widget.cpp" />
     <ClCompile Include="..\..\src\window.cpp" />
   </ItemGroup>
@@ -92,7 +101,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
