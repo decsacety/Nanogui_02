@@ -27,7 +27,7 @@ namespace nanogui {
         NANOGUI_EXPORT void performLayout();
         NANOGUI_EXPORT void drawAll();
         NANOGUI_EXPORT void setParent(Screen* subScreen);
-        GLFWwindow* glfwWindow() { return mGLFWWindow; }
+        NANOGUI_EXPORT GLFWwindow* glfwWindow() { return mGLFWWindow; }
         NANOGUI_EXPORT bool cursorPosCallbackEvent(double x, double y);
         NANOGUI_EXPORT bool mouseButtonCallbackEvent(int button, int action, int modifiers);
         NANOGUI_EXPORT bool keyCallbackEvent(int key, int scancode, int action, int mods);
@@ -70,4 +70,6 @@ namespace nanogui {
             EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     };
+
+
 }

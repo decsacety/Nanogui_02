@@ -64,7 +64,28 @@ namespace nanogui {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        mGLFWWindow = glfwCreateWindow(size[0], size[1], name, nullptr, nullptr);
+        glfwWindowHint(GLFW_SAMPLES, nSamples);
+        glfwWindowHint(GLFW_RED_BITS, colorBits);
+        glfwWindowHint(GLFW_GREEN_BITS, colorBits);
+        glfwWindowHint(GLFW_BLUE_BITS, colorBits);
+        glfwWindowHint(GLFW_ALPHA_BITS, alphaBits);
+        glfwWindowHint(GLFW_STENCIL_BITS, stencilBits);
+        glfwWindowHint(GLFW_DEPTH_BITS, depthBits);
+        glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, resizable ? GL_TRUE : GL_FALSE);
+
+
+        //mGLFWWindow = glfwCreateWindow(size[0], size[1], name, nullptr, nullptr);
+        if (fullscreen) {
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+            mGLFWWindow = glfwCreateWindow(mode->width, mode->height,
+                name, monitor, nullptr);
+        }
+        else {
+            mGLFWWindow = glfwCreateWindow(size.x(), size.y(),
+                name, nullptr, nullptr);
+        }
 
         if (!mGLFWWindow)
             std::cout << "Fail to create an OpenGL context !";
@@ -189,7 +210,10 @@ namespace nanogui {
 
         if (mPixelRatio != 1)
             glfwSetWindowSize(window, mSize[0] * mPixelRatio, mSize[1] * mPixelRatio);//
-        
+
+        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+            throw std::runtime_error("Could not initialize GLAD!");//有判断条件未抄
+
         GLint nStencilBits = 0, nSamples = 0;
         glGetFramebufferAttachmentParameteriv(GL_DRAW_FRAMEBUFFER,
             GL_STENCIL, GL_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE, &nStencilBits);
@@ -213,6 +237,9 @@ namespace nanogui {
         mLastInteraction = glfwGetTime();
         mProcessEvents = true;
         __nanogui_screens[mGLFWWindow] = this;
+
+        for (int i = 0; i < (int)Cursor::CursorCount; ++i)
+            mCursors[i] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR + i);
 
         nvgBeginFrame(mNVGContext, mSize[0], mSize[1], mPixelRatio);
         nvgEndFrame(mNVGContext);
