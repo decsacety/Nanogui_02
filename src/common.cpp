@@ -26,7 +26,6 @@ namespace nanogui {
              throw std::runtime_error("Could not initialize GLFW!");
 
          glfwSetTime(0);
-         std::cout << "dwad";
     }
 
     static bool mainloop_active = false;

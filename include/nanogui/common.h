@@ -11,6 +11,13 @@
 #  pragma warning(disable : 4127) // warning C4127: conditional expression is constant
 #endif
 
+/*
+*   if you use the origin <glad.h>， please put ~~#define GLAD_GLAPI_EXPORT//定义导出函数~~
+*   in the first in the head of <glad.h> to export function. 
+*   Without nanogui/opengl.h
+*/
+
+
 
 #include <Eigen/Core>
 #include <vector>

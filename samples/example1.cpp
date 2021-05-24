@@ -93,17 +93,40 @@ int mCurrentImage;
 
 int main(int argc, char* argv[])
 {
+    //nanogui::init();
+    //{
+    //    glfwInit();
+    //    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    //    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    //    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    //    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    //    GLFWwindow* mGLFWWindow = glfwCreateWindow(1200, 800,
+    //        "HHH", nullptr, nullptr);
+
+    //    glfwMakeContextCurrent(mGLFWWindow);//初始化及创建窗口
+
+    //    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    //        throw std::runtime_error("Could not initialize GLAD!");//初始化glad
+
+    //    unsigned v = 0;
+    //    glGenTextures(1, &v);
+    //}
+    
     nanogui::init();
 
-    {
+    { 
         Screen* screen = nullptr;
-
-        screen = new Screen(Vector2i(1200, 700), "NanoGui-HolyHuaQ!");
 
         Screen* screen1 = new Screen(Vector2i(200, 500), "DiLiDaLiLiDa!!!");
         screen1->setVisible(true); 
         screen1->performLayout();
 
+        screen = new Screen(Vector2i(1200, 700), "NanoGui-HolyHuaQ!");
+
+       
+        unsigned v = 0;
+        glGenTextures(1, &v);
         //开始创建窗口内容器
 
         /*Screen* subScreen = new Screen(20, 200, "Form helper example",SUBSCREEN);

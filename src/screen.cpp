@@ -58,7 +58,9 @@ namespace nanogui {
         mCursor(Cursor::Arrow), mBackground(0.45f, 0.549f, 0.6f, 1.f), mCaption(name),
         mShutdownGLFWOnDestruct(false), mFullscreen(fullscreen)
     {
-        
+        memset(mCursors, 0, sizeof(GLFWcursor*) * (int)Cursor::CursorCount);
+
+        //glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -91,9 +93,12 @@ namespace nanogui {
             std::cout << "Fail to create an OpenGL context !";
 
         glfwMakeContextCurrent(mGLFWWindow);//初始化及创建窗口
+        printf("FAT, %p\n", &glGenTextures); 
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
             throw std::runtime_error("Could not initialize GLAD!");//初始化glad
+
+
 
         glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
         glViewport(0, 0, mFBSize[0], mFBSize[1]);
@@ -211,8 +216,9 @@ namespace nanogui {
         if (mPixelRatio != 1)
             glfwSetWindowSize(window, mSize[0] * mPixelRatio, mSize[1] * mPixelRatio);//
 
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-            throw std::runtime_error("Could not initialize GLAD!");//有判断条件未抄
+        //if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        //    throw std::runtime_error("Could not initialize GLAD!");//有判断条件未抄
+
 
         GLint nStencilBits = 0, nSamples = 0;
         glGetFramebufferAttachmentParameteriv(GL_DRAW_FRAMEBUFFER,

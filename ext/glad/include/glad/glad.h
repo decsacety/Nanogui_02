@@ -18,7 +18,7 @@
     Online:
         https://glad.dav1d.de/#profile=core&language=c&specification=gl&api=gl%3D4.6
 */
-
+#define GLAD_GLAPI_EXPORT//定义导出函数
 
 #ifndef __glad_h_
 #define __glad_h_

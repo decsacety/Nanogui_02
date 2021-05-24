@@ -2,7 +2,6 @@
     src/glutil.cpp -- Convenience classes for accessing OpenGL >= 3.x
  */
 
-
 #include<glad/glad.h>
 #include<nanogui/glutil.h>
 
