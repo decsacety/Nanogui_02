@@ -9,10 +9,16 @@ namespace nanogui {
 	public:
 		NANOGUI_EXPORT Window(Widget* parent, const char* title = "Untitle");
 		const std::string& title() const { return mTitle; }
+		void setTitle(const std::string& title) { mTitle = title; }
 
 		bool modal() const { return mModal; }
 		void setModal(bool modal) { mModal = modal; }
 
+		Widget* buttonPanel();
+
+		void dispose();
+
+		void center();
 		//void setSize(int x, int y) { mSize.x() = x; mSize.y() = y; }
 
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
@@ -26,7 +32,8 @@ namespace nanogui {
 	protected:
 
 	protected:
-		const char* mTitle;
+		//const char* mTitle;
+		std::string mTitle;
 		Widget* mButtonPanel;
 		bool mModal;
 		bool mDrag;

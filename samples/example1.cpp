@@ -125,8 +125,6 @@ int main(int argc, char* argv[])
         screen = new Screen(Vector2i(1200, 700), "NanoGui-HolyHuaQ!");
 
        
-        unsigned v = 0;
-        glGenTextures(1, &v);
         //开始创建窗口内容器
 
         /*Screen* subScreen = new Screen(20, 200, "Form helper example",SUBSCREEN);
@@ -278,6 +276,23 @@ int main(int argc, char* argv[])
             Color textColor = Color(colorScale, 1.0f);
             return { stringData, textColor };
         });
+
+        //Create a messageDialog
+        label = new Label(window, "Message dialog", "sans-bold");
+        label->setLeftMargin(5);
+        Widget* tools = new Widget(window);
+        tools->setLayout(new BoxLayout(Orientation::Horizontal,
+            Alignment::Middle, 0, 6));
+        Button* b = new Button(tools, "Info");
+        b->setWidth(35);
+        b->setCallback([&] {
+            auto dlg = new MessageDialog(screen, MessageDialog::Type::Information, "Title", "This is an information message");
+            dlg->setCallback([](int result) { std::cout << "Dialog result: " << result << std::endl; });
+        });
+        b = new Button(tools, "Warn");
+        b->setWidth(35);
+        b = new Button(tools, "Ask");
+        b->setWidth(35);
 
 
         //Another way to create a colorPicker without formHelper

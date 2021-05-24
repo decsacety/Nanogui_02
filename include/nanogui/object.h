@@ -25,7 +25,7 @@ namespace nanogui {
 	public:
 		ref() {	}
 
-		ref(T* ptr) : m_ptr() {
+		ref(T* ptr) : m_ptr(ptr) {
 			if (m_ptr)
 				((Object*)m_ptr)->incRef();
 		}

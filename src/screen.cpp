@@ -93,7 +93,6 @@ namespace nanogui {
             std::cout << "Fail to create an OpenGL context !";
 
         glfwMakeContextCurrent(mGLFWWindow);//初始化及创建窗口
-        printf("FAT, %p\n", &glGenTextures); 
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
             throw std::runtime_error("Could not initialize GLAD!");//初始化glad
@@ -509,6 +508,22 @@ namespace nanogui {
                 }
             }
         } while (changed);
+    }
+
+    void Screen::disposeWindow(Window* window) {
+        if (std::find(mFocusPath.begin(), mFocusPath.end(), window) != mFocusPath.end())
+            mFocusPath.clear();
+        if (mDragWidget == window)
+            mDragWidget = nullptr;
+        removeChild(window);
+    }
+
+    void Screen::centerWindow(Window* window) {
+        if (window->size() == Vector2i::Zero()) {
+            window->setSize(window->preferredSize(mNVGContext));
+            window->performLayout(mNVGContext);
+;        }
+        window->setPosition((mSize - window->size()) / 2);
     }
 
     void Screen::setVisible(bool flag) {

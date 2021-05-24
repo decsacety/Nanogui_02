@@ -11,6 +11,7 @@ namespace nanogui {
 		mFlags(NormalButton), mBackgroundColor(Color(0,0)),
 		mTextColor (Color(0,0)){
 		mLeftMargin = -1;
+		mShortButton = false;
 	}
 
 	Vector2i Button::preferredSize(NVGcontext* ctx) const {
@@ -140,6 +141,8 @@ namespace nanogui {
 			mSize.x() = 60;
 		else
 			mSize.x() = mCaption.size() * 7.8;//设定button宽度，每个字符8个像素，
+		if (mShortButton)
+			mSize.x() = mWidth;
 		mSize.y() = mTheme->mButtonFontSize * 1.6;//设定button高度，为字体大小的1.4倍
 
 		nvgFillPaint(ctx, bg);

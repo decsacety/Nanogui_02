@@ -90,6 +90,9 @@
     <ClInclude Include="..\..\include\nanogui\nanogui.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\messagedialog.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -171,6 +174,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\glutil.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\messagedialog.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

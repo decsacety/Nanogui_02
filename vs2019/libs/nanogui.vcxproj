@@ -31,6 +31,7 @@
     <ClInclude Include="..\..\include\nanogui\imageview.h" />
     <ClInclude Include="..\..\include\nanogui\label.h" />
     <ClInclude Include="..\..\include\nanogui\layout.h" />
+    <ClInclude Include="..\..\include\nanogui\messagedialog.h" />
     <ClInclude Include="..\..\include\nanogui\nanogui.h" />
     <ClInclude Include="..\..\include\nanogui\object.h" />
     <ClInclude Include="..\..\include\nanogui\opengl.h" />
@@ -61,6 +62,7 @@
     <ClCompile Include="..\..\src\imageview.cpp" />
     <ClCompile Include="..\..\src\label.cpp" />
     <ClCompile Include="..\..\src\layout.cpp" />
+    <ClCompile Include="..\..\src\messagedialog.cpp" />
     <ClCompile Include="..\..\src\nanovg.c" />
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\popup.cpp" />

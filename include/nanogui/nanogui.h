@@ -16,7 +16,7 @@
 #include <nanogui/combobox.h>
 //#include <nanogui/progressbar.h>
 #include <nanogui/entypo.h>
-//#include <nanogui/messagedialog.h>
+#include <nanogui/messagedialog.h>
 #include <nanogui/textbox.h>
 #include <nanogui/slider.h>
 #include <nanogui/imagepanel.h>

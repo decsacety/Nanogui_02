@@ -5,10 +5,11 @@
 
 namespace nanogui {
 
-	BoxLayout::BoxLayout(Orientation orientation, Alignment alignment, 
-		int margin, int spacing):
-		mOrientation(orientation), mAlignment(alignment), mMargin(margin), mSpacing(spacing)
-	{}
+	BoxLayout::BoxLayout(Orientation orientation, Alignment alignment,
+		int margin, int spacing)
+		: mOrientation(orientation), mAlignment(alignment), mMargin(margin),
+		mSpacing(spacing) {
+	}
 
 	Vector2i BoxLayout::preferredSize(NVGcontext* ctx, const Widget* widget) const {
 		Vector2i size = Vector2i::Constant(2 * mMargin);
@@ -23,14 +24,14 @@ namespace nanogui {
 		}
 
 		bool first = true;
-		int axisl = (int)mOrientation, axis2 = ((int)mOrientation + 1) % 2;
+		int axis1 = (int)mOrientation, axis2 = ((int)mOrientation + 1) % 2;
 		for (auto w : widget->children()) {
 			if (!w->visible())
 				continue;
 			if (first)
 				first = false;
 			else
-				size[axisl] += mSpacing;
+				size[axis1] += mSpacing;
 
 			Vector2i ps = w->preferredSize(ctx), fs = w->fixedSize();
 			Vector2i targetSize(
@@ -38,7 +39,7 @@ namespace nanogui {
 				fs[1] ? fs[1] : ps[1]
 			);
 
-			size[axisl] += targetSize[axisl];
+			size[axis1] += targetSize[axis1];
 			size[axis2] = std::max(size[axis2], targetSize[axis2] + 2 * mMargin);
 			first = false;
 		}
@@ -52,11 +53,11 @@ namespace nanogui {
 			fs_w[1] ? fs_w[1] : widget->height()
 		);
 
-		int axisl = (int)mOrientation, axis2 = ((int)mOrientation + 1) % 2;
+		int axis1 = (int)mOrientation, axis2 = ((int)mOrientation + 1) % 2;
 		int position = mMargin;
 		int yOffset = 0;
 
-		const Window* window = dynamic_cast<const Window*> (widget);
+		const Window* window = dynamic_cast<const Window*>(widget);
 		if (window && !window->title().empty()) {
 			if (mOrientation == Orientation::Vertical) {
 				position += widget->theme()->mWindowHeaderHeight - mMargin / 2;
@@ -83,28 +84,28 @@ namespace nanogui {
 			);
 			Vector2i pos(0, yOffset);
 
-			pos[axisl] = position;
+			pos[axis1] = position;
 
 			switch (mAlignment) {
-				case Alignment::Minimum:
-					pos[axis2] += mMargin;
-					break;
-				case Alignment::Middle:	
-					pos[axis2] += (containerSize[axis2] - targetSize[axis2] / 2);
-					break;
-				case Alignment::Maximum:
-					pos[axis2] += containerSize[axis2] - targetSize[axis2] - mMargin * 2;
-					break;
-				case Alignment::Fill:
-					pos[axis2] += mMargin;
-					targetSize[axis2] = fs[axis2] ? fs[axis2] : (containerSize[axis2] - mMargin * 2);
-					break;
+			case Alignment::Minimum:
+				pos[axis2] += mMargin;
+				break;
+			case Alignment::Middle:
+				pos[axis2] += (containerSize[axis2] - targetSize[axis2]) / 2;
+				break;
+			case Alignment::Maximum:
+				pos[axis2] += containerSize[axis2] - targetSize[axis2] - mMargin * 2;
+				break;
+			case Alignment::Fill:
+				pos[axis2] += mMargin;
+				targetSize[axis2] = fs[axis2] ? fs[axis2] : (containerSize[axis2] - mMargin * 2);
+				break;
 			}
 
 			w->setPosition(pos);
 			w->setSize(targetSize);
 			w->performLayout(ctx);
-			position += targetSize[axisl];
+			position += targetSize[axis1];
 		}
 	}
 

@@ -40,13 +40,18 @@ namespace nanogui {
         /// Return a pointer to the underlying nanoVG draw context
         NANOGUI_EXPORT NVGcontext *nvgContext() { return mNVGContext; }
 
+        /* Internal helper functions */
         NANOGUI_EXPORT void updateFocus(Widget* widget);
         NANOGUI_EXPORT void drawWidgets();
         NANOGUI_EXPORT void moveWindowToFront(Window* window);
+        NANOGUI_EXPORT void disposeWindow(Window* window);
+        NANOGUI_EXPORT void centerWindow(Window* window);
 
         NANOGUI_EXPORT virtual bool keyboardEvent(int key, int scancode, int action, int modifiers);
         NANOGUI_EXPORT virtual bool keyboardCharacterEvent(unsigned int codepoint);
         NANOGUI_EXPORT virtual bool dropEvent(const std::vector<std::string> &/*filename*/) { return false; /* To be override, now I dont know which function will override it*/ }
+   
+    
     protected:
         GLFWwindow* mGLFWWindow;
         NVGcontext* mNVGContext;

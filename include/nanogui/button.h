@@ -57,6 +57,9 @@ namespace nanogui {
 		const std::vector<Button* >& buttonGroup() const { return mButtonGroup; }
 		void setButtonGroup(const std::vector<Button*>& buttonGroup) { mButtonGroup = buttonGroup; }
 
+		int width() const { return mWidth; }
+		void setWidth(int sb) { mWidth = sb; mShortButton = true; }
+
 		//虚函数
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
 		virtual bool mouseButtonEvent(const Vector2i& p, int button, bool down, int modifiers) override;
@@ -77,6 +80,9 @@ namespace nanogui {
 
 		//手动设定左边界
 		int mLeftMargin;
+		// 判断是否启用short button
+		bool mShortButton;
+		int mWidth;
 
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW

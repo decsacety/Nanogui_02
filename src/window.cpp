@@ -26,11 +26,19 @@ namespace nanogui {
 		nvgFontSize(ctx, 13.0f);
 		nvgFontFace(ctx, "sans-bold");
 		float bounds[4];
-		nvgTextBounds(ctx, 0, 0, mTitle, nullptr, bounds);
+		nvgTextBounds(ctx, 0, 0, mTitle.c_str(), nullptr, bounds);
 
 		return result.cwiseMax(Vector2i(
 			bounds[2] - bounds[0] + 20, bounds[3] - bounds[1] + 20
 		));//y轴增加20作为边框
+	}
+
+	Widget* Window::buttonPanel() {
+		if (!mButtonPanel) {
+			mButtonPanel = new Widget(this);
+			mButtonPanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 4));
+		}
+		return mButtonPanel;
 	}
 
 	void Window::performLayout(NVGcontext* ctx) {
@@ -98,7 +106,7 @@ namespace nanogui {
 		nvgFill(ctx);
 		nvgRestore(ctx);
 
-		if (mTitle) {
+		if (!mTitle.empty()) {
 			NVGpaint headerPaint = nvgLinearGradient(
 				ctx, mPos.x(), mPos.y(), mPos.x(), mPos.y() + hh,
 				mFocused? mTheme->mWindowUnfHeaderGradientTop:mTheme->mWindowHeaderGradientTop,
@@ -132,19 +140,34 @@ namespace nanogui {
 			nvgFontBlur(ctx, 2);
 			nvgFillColor(ctx, mTheme->mDropShadow);
 			nvgText(ctx, mPos.x() + mSize.x() / 2,
-				mPos.y() + hh / 2, mTitle, nullptr);
+				mPos.y() + hh / 2, mTitle.c_str(), nullptr);
 
 			nvgFontBlur(ctx, 0);
 			nvgFillColor(ctx, mFocused ? mTheme->mWindowTitleFocused :
 				mTheme->mWindowTitleUnfocused);
 			nvgText(ctx, mPos.x() + mSize.x() / 2, mPos.y() + hh / 2 - 1,
-				mTitle, nullptr);
+				mTitle.c_str(), nullptr);
 
 		}
 
 		nvgRestore(ctx);
 		Widget::draw(ctx);
 
+
+	}
+
+	void Window::dispose() {
+		Widget* widget = this;
+		while (widget->parent())
+			widget = widget->parent();
+		((Screen*)widget)->disposeWindow(this);
+	}
+
+	void Window::center() {
+		Widget* widget = this;
+		while (widget->parent())
+			widget = widget->parent();
+		((Screen*)widget)->centerWindow(this);
 
 	}
 
