@@ -60,6 +60,9 @@ namespace nanogui {
 		int width() const { return mWidth; }
 		void setWidth(int sb) { mWidth = sb; mShortButton = true; }
 
+		int textLeftMargin() const { return mTextLeftMargin; }
+		void setTextLeftMargin(int t) { mTextLeftMargin = t; }
+
 		//–È∫Ø ˝
 		virtual Vector2i preferredSize(NVGcontext* ctx) const override;
 		virtual bool mouseButtonEvent(const Vector2i& p, int button, bool down, int modifiers) override;
@@ -83,6 +86,7 @@ namespace nanogui {
 		// ≈–∂œ «∑Ò∆Ù”√short button
 		bool mShortButton;
 		int mWidth;
+		int mTextLeftMargin;
 
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW

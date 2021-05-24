@@ -47,6 +47,7 @@ namespace nanogui {
         button->setCallback([&] {
             if (mCallback) mCallback(0); 
             dispose(); });
+        button->setTextLeftMargin(10);
         center();
         requestFocus();
     }

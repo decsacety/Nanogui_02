@@ -12,6 +12,7 @@ namespace nanogui {
 		mTextColor (Color(0,0)){
 		mLeftMargin = -1;
 		mShortButton = false;
+		mTextLeftMargin = 0;
 	}
 
 	Vector2i Button::preferredSize(NVGcontext* ctx) const {
@@ -230,9 +231,9 @@ namespace nanogui {
 		nvgFontFace(ctx, "sans-bold");
 		nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
 		nvgFillColor(ctx, mTheme->mTextColorShadow);
-		nvgText(ctx, textPos.x(), textPos.y()+1, mCaption.c_str(), nullptr);
+		nvgText(ctx, mTextLeftMargin ? mTextLeftMargin:textPos.x(), textPos.y()+1, mCaption.c_str(), nullptr);
 		nvgFillColor(ctx, textColor);
-		nvgText(ctx, textPos.x(), textPos.y() + 2, mCaption.c_str(), nullptr);		
+		nvgText(ctx, mTextLeftMargin ? mTextLeftMargin : textPos.x(), textPos.y() + 2, mCaption.c_str(), nullptr);
 
 
 		if (mAppendixText != "") {
