@@ -93,6 +93,12 @@
     <ClInclude Include="..\..\include\nanogui\messagedialog.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\toolbutton.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\nanogui\progressbar.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp">
@@ -177,6 +183,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\messagedialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\progressbar.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

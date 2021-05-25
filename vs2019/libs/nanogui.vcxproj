@@ -37,6 +37,7 @@
     <ClInclude Include="..\..\include\nanogui\opengl.h" />
     <ClInclude Include="..\..\include\nanogui\popup.h" />
     <ClInclude Include="..\..\include\nanogui\popupbutton.h" />
+    <ClInclude Include="..\..\include\nanogui\progressbar.h" />
     <ClInclude Include="..\..\include\nanogui\screen.h" />
     <ClInclude Include="..\..\include\nanogui\slider.h" />
     <ClInclude Include="..\..\include\nanogui\stactedwidget.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="..\..\include\nanogui\tabwidget.h" />
     <ClInclude Include="..\..\include\nanogui\textbox.h" />
     <ClInclude Include="..\..\include\nanogui\theme.h" />
+    <ClInclude Include="..\..\include\nanogui\toolbutton.h" />
     <ClInclude Include="..\..\include\nanogui\vscrollpanel.h" />
     <ClInclude Include="..\..\include\nanogui\widget.h" />
     <ClInclude Include="..\..\include\nanogui\window.h" />
@@ -67,6 +69,7 @@
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\popup.cpp" />
     <ClCompile Include="..\..\src\popupbutton.cpp" />
+    <ClCompile Include="..\..\src\progressbar.cpp" />
     <ClCompile Include="..\..\src\screen.cpp" />
     <ClCompile Include="..\..\src\slider.cpp" />
     <ClCompile Include="..\..\src\stackedwidget.cpp" />

@@ -238,7 +238,7 @@ int main(int argc, char* argv[])
         popup->setFixedSize(Vector2i(245, 150));
 
         auto imageWindow = new Window(screen, "Selected image");
-        imageWindow->setPosition(Vector2i(710, 15));
+        imageWindow->setPosition(Vector2i(710, 215));
         imageWindow->setLayout(new GroupLayout());
 
         // Load all of the images by creating a GLTexture object and saving the pixel data.
@@ -294,6 +294,9 @@ int main(int argc, char* argv[])
         b = new Button(tools, "Ask");
         b->setWidth(35);
 
+        label = new Label(window, "Progress bar", "sans-bold");
+        label->setLeftMargin(5);
+        ProgressBar* mProgress = new ProgressBar(window);
 
         //Another way to create a colorPicker without formHelper
         label = new Label(window, "Color picker :", "sans-bold");
@@ -317,7 +320,7 @@ int main(int argc, char* argv[])
 
 
         /// ´°¿ÚËÄ
-        window2 = gui->addWindow(Vector2i(700, 100), "HuaQ");
+        window2 = gui->addWindow(Vector2i(400, 80), "HuaQ");
         gui->addText("This is a useful text!");
         gui->addText("No matter where you are, it`s still a life.");
         Button* buttonOne =nullptr;

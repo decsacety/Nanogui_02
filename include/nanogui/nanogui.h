@@ -14,7 +14,7 @@
 #include <nanogui/popup.h>
 #include <nanogui/popupbutton.h>
 #include <nanogui/combobox.h>
-//#include <nanogui/progressbar.h>
+#include <nanogui/progressbar.h>
 #include <nanogui/entypo.h>
 #include <nanogui/messagedialog.h>
 #include <nanogui/textbox.h>
