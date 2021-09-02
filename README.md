@@ -24,6 +24,6 @@ etc.
 
 It looks like now :
 ![Image text](https://github.com/decsacety/Nanogui_02/blob/main/samples/n1.png)
-![Image text](https://github.com/decsacety/Nanogui_02/blob/main/samples/n1.png)
-![Image text](https://github.com/decsacety/Nanogui_02/blob/main/samples/n1.png)
+![Image text](https://github.com/decsacety/Nanogui_02/blob/main/samples/n2.png)
+![Image text](https://github.com/decsacety/Nanogui_02/blob/main/samples/n3.png)
 
